@@ -1,0 +1,15 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "title": "Estudar Angular",
+      "description": "Revisar módulo de componentes",
+      "subtasks": [
+        { "title": "Instalar Angular CLI", "done": false },
+        { "title": "Criar projeto com standalone", "done": true }
+      ],
+      "status": "RASCUNHO",
+      "pendingChange": null
+    }
+  ]
+}
