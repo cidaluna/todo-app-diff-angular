@@ -1,0 +1,18 @@
+<h2>📋 Lista de Tarefas</h2>
+
+    <ul *ngIf="todos.length > 0; else empty">
+      <li *ngFor="let todo of todos">
+        <strong>{{ todo.title }}</strong> — Status: {{ todo.status }}
+        <br />
+        <button (click)="editar(todo.id)">Editar</button>
+        <button *ngIf="todo.status === 'PENDENTE_APROVACAO'"
+        (click)="verDiff(todo.id)">
+          Ver Diff / Aprovar
+        </button>
+        <hr />
+      </li>
+    </ul>
+
+    <ng-template #empty>
+      <p>Sem tarefas cadastradas.</p>
+    </ng-template>

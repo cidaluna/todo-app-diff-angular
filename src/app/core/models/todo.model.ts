@@ -2,7 +2,7 @@ import { ISubtask } from './subtask.model';
 import { Status } from './status.enum';
 
 export interface ITodo {
-  id?: number;
+  id: number;
   title: string;
   description?: string;
   subtasks: ISubtask[];
