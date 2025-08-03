@@ -33,5 +33,6 @@ export class TodoListComponent implements OnInit{
   verDiff(id: number) {
     // exemplo: navegar para rota /diff/:id
     console.log('verDiff', id);
+    this.router.navigate(['/diff', id]);
   }
 }

@@ -1,5 +1,5 @@
 export enum Status {
   RASCUNHO = 'RASCUNHO',
   PENDENTE_APROVACAO = 'PENDENTE_APROVACAO',
-  ATIVO = 'ATIVO'
+  ATIVA = 'ATIVA'
 }

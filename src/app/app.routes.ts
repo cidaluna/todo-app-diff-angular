@@ -10,5 +10,10 @@ export const routes: Routes = [
   {
     path: 'editar/:id',
     loadComponent: () => import('./features/todo-form.component').then(m => m.TodoFormComponent)
+  },
+  {
+    path: 'diff/:id',
+    loadComponent: () =>
+      import('./features/todo-diff.component').then(m => m.TodoDiffComponent)
   }
 ];

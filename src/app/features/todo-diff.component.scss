@@ -1,0 +1,21 @@
+.diff-container {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.card {
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.original {
+  background-color: #f9f9f9;
+}
+
+.proposed {
+  background-color: #e6f7ff;
+}

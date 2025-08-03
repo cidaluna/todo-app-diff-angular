@@ -44,7 +44,7 @@
           "done": false
         }
       ],
-      "status": "PENDENTE_APROVACAO",
+      "status": "ATIVA",
       "pendingChange": {
         "title": "Estudar Java",
         "description": "Estudar Java pois o mercado tem muitas oportunidades",
@@ -54,15 +54,7 @@
             "done": false
           },
           {
-            "title": "Estudar Enum",
-            "done": false
-          },
-          {
-            "title": "Estudar Converter",
-            "done": false
-          },
-          {
-            "title": "Estudar integração com MongoDB",
+            "title": "Estudar BD",
             "done": false
           }
         ],
