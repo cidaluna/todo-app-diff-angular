@@ -3,4 +3,8 @@ import { TodoListComponent } from './features/todo-list.component';
 
 export const routes: Routes = [
   { path: '', component: TodoListComponent },
+  {
+    path: 'nova',
+    loadComponent: () => import('./features/todo-form.component').then(m => m.TodoFormComponent)
+  }
 ];

@@ -5,8 +5,31 @@
       "title": "Estudar Angular",
       "description": "Revisar módulo de componentes",
       "subtasks": [
-        { "title": "Instalar Angular CLI", "done": false },
-        { "title": "Criar projeto com standalone", "done": true }
+        {
+          "title": "Instalar Angular CLI",
+          "done": false
+        },
+        {
+          "title": "Criar projeto com standalone",
+          "done": true
+        }
+      ],
+      "status": "RASCUNHO",
+      "pendingChange": null
+    },
+    {
+      "id": 1754223823679,
+      "title": "Estudar React",
+      "description": "Startups pedem conhecimento em React, Node.JS e Python",
+      "subtasks": [
+        {
+          "title": "Criar Crud em React",
+          "done": false
+        },
+        {
+          "title": "Estudar i ntegrações",
+          "done": false
+        }
       ],
       "status": "RASCUNHO",
       "pendingChange": null

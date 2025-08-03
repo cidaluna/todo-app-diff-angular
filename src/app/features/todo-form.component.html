@@ -1,0 +1,27 @@
+<h2>📝 Nova Tarefa</h2>
+
+<form [formGroup]="form" (ngSubmit)="saveAsDraft()">
+  <label>
+    Título:
+    <input formControlName="title" />
+  </label>
+
+  <label>
+    Descrição:
+    <textarea formControlName="description"></textarea>
+  </label>
+
+  <h3>Subtarefas:</h3>
+  <div formArrayName="subtasks">
+    <div *ngFor="let subtask of subtasks.controls; let i = index" [formGroupName]="i">
+      <input formControlName="title" placeholder="Descrição da subtarefa" />
+      <input type="checkbox" formControlName="done" />
+      <button type="button" (click)="removeSubtask(i)">Remover</button>
+    </div>
+  </div>
+
+  <button type="button" (click)="addSubtask()">+ Adicionar Subtarefa</button>
+
+  <br /><br />
+  <button type="submit">Salvar como Rascunho</button>
+</form>

@@ -2,7 +2,7 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.19.
 
-Exemplo no terminal:  
+Screenshot:  
 
 ![Iniciando Todo App](./assets/img/start-todo-app-diff-angular-18-frontend-aparecida-goncalves.png)
 
