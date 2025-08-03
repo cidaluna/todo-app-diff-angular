@@ -29,4 +29,8 @@ export class TodoService {
   updateTodo(id: number, todo: Partial<ITodo>): Observable<ITodo> {
     return this.http.patch<ITodo>(`${this.baseUrl}/${id}`, todo);
   }
+
+  getTodoById(id: number): Observable<ITodo> {
+    return this.http.get<ITodo>(`${this.baseUrl}/${id}`);
+  }
 }

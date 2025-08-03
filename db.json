@@ -33,6 +33,42 @@
       ],
       "status": "RASCUNHO",
       "pendingChange": null
+    },
+    {
+      "id": 1754224492722,
+      "title": "Estudar Java",
+      "description": "Estudar Java pois o mercado tem muitas oportunidades",
+      "subtasks": [
+        {
+          "title": "Estudar JPA",
+          "done": false
+        }
+      ],
+      "status": "PENDENTE_APROVACAO",
+      "pendingChange": {
+        "title": "Estudar Java",
+        "description": "Estudar Java pois o mercado tem muitas oportunidades",
+        "subtasks": [
+          {
+            "title": "Estudar JPA",
+            "done": false
+          },
+          {
+            "title": "Estudar Enum",
+            "done": false
+          },
+          {
+            "title": "Estudar Converter",
+            "done": false
+          },
+          {
+            "title": "Estudar integração com MongoDB",
+            "done": false
+          }
+        ],
+        "status": "PENDENTE_APROVACAO",
+        "pendingChange": null
+      }
     }
   ]
 }

@@ -24,4 +24,8 @@
 
   <br /><br />
   <button type="submit">Salvar como Rascunho</button>
+  <br /><br />
+  <button *ngIf="isEditing" type="button" (click)="saveForApproval()">
+    Salvar para Aprovação
+  </button>
 </form>

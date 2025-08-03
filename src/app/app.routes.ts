@@ -6,5 +6,9 @@ export const routes: Routes = [
   {
     path: 'nova',
     loadComponent: () => import('./features/todo-form.component').then(m => m.TodoFormComponent)
+  },
+  {
+    path: 'editar/:id',
+    loadComponent: () => import('./features/todo-form.component').then(m => m.TodoFormComponent)
   }
 ];

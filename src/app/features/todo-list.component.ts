@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { TodoService } from '../core/services/todo.service';
 import { ITodo } from '../core/models/todo.model';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-todo-list',
@@ -12,7 +12,9 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./todo-list.component.scss'],
 })
 export class TodoListComponent implements OnInit{
-private readonly todoService = inject(TodoService);
+  private readonly todoService = inject(TodoService);
+  private readonly router = inject(Router);
+
   todos: ITodo[] = [];
 
   ngOnInit(): void {
@@ -25,6 +27,7 @@ private readonly todoService = inject(TodoService);
   editar(id: number) {
     // exemplo: navegar para rota /editar/:id
     console.log('editar', id);
+    this.router.navigate(['/editar', id]);
   }
 
   verDiff(id: number) {
