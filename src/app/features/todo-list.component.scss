@@ -1,5 +1,20 @@
+:host {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.container {
+  width: 100%;
+  max-width: 800px;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
 h2 {
-  margin-bottom: 1rem;
+  margin-bottom: 0.2rem;
   font-size: 24px;
   color: #2c3e50;
 }
@@ -25,25 +40,75 @@ li {
     font-size: 18px;
     color: #34495e;
   }
-
-  button {
-    margin-top: 0.5rem;
-    margin-right: 0.5rem;
-    padding: 6px 12px;
-    background-color: #3498db;
-    border: none;
-    border-radius: 4px;
-    color: white;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-      background-color: #2980b9;
-    }
-  }
 }
 
 p {
   color: #777;
+}
+
+.actions {
+    margin-top: 0.5rem;
+
+    button {
+      margin-right: 0.5rem;
+      padding: 0.4rem 0.8rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .btn-editar {
+      background-color: #478cf4;
+      color: white;
+
+      &:hover {
+        background-color: #3173d2;
+      }
+    }
+
+    .btn-diff {
+      background-color: #e0e0e0;
+
+      &:hover {
+        background-color: #ccc;
+      }
+    }
+  }
+
+.top-bar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+}
+
+.btn-nova-tarefa {
+  padding: 0.6rem 1.2rem;
+  background-color: #a88bfa; // roxo suave
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #9475f2;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+
+    button {
+      margin-bottom: 0.5rem;
+      width: 100%;
+    }
+  }
 }
