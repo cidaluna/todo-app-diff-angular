@@ -62,4 +62,7 @@ export class TodoDiffComponent implements OnInit {
     });
   }
 
+  voltar() {
+    this.router.navigate(['/']);
+  }
 }

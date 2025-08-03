@@ -1,34 +1,38 @@
-<h2>Comparação da Tarefa</h2>
+<div class="container">
+  <h2>Comparação da Tarefa</h2>
+  <div class="top-bar-diff">
+    <button class="voltar" type="button" (click)="voltar()">Voltar</button>
+  </div>
+  <div *ngIf="todo && todo.pendingChange" class="diff-container">
+    <div class="card original">
+      <h3>Original</h3>
+      <p><strong>Título:</strong> {{ todo.title }}</p>
+      <p><strong>Descrição:</strong> {{ todo.description }}</p>
+      <ul>
+        <li *ngFor="let s of todo.subtasks">
+          {{ s.title }} - {{ s.done ? 'Feita' : 'Pendente' }}
+        </li>
+      </ul>
+    </div>
 
-<div *ngIf="todo && todo.pendingChange" class="diff-container">
-  <div class="card original">
-    <h3>Original</h3>
-    <p><strong>Título:</strong> {{ todo.title }}</p>
-    <p><strong>Descrição:</strong> {{ todo.description }}</p>
-    <ul>
-      <li *ngFor="let s of todo.subtasks">
-        {{ s.title }} - {{ s.done ? 'Feita' : 'Pendente' }}
-      </li>
-    </ul>
+    <div class="card proposed">
+      <h3>Proposta</h3>
+      <p><strong>Título:</strong> {{ todo.pendingChange.title }}</p>
+      <p><strong>Descrição:</strong> {{ todo.pendingChange.description }}</p>
+      <ul>
+        <li *ngFor="let s of todo.pendingChange?.subtasks">
+          {{ s.title }} - {{ s.done ? 'Feita' : 'Pendente' }}
+        </li>
+      </ul>
+    </div>
   </div>
 
-  <div class="card proposed">
-    <h3>Proposta</h3>
-    <p><strong>Título:</strong> {{ todo.pendingChange.title }}</p>
-    <p><strong>Descrição:</strong> {{ todo.pendingChange.description }}</p>
-    <ul>
-      <li *ngFor="let s of todo.pendingChange?.subtasks">
-        {{ s.title }} - {{ s.done ? 'Feita' : 'Pendente' }}
-      </li>
-    </ul>
+  <div *ngIf="todo?.pendingChange">
+    <button class="btn-rejeitar" (click)="rejeitar()">Rejeitar</button>
+    <button class="btn-aprovar" (click)="aprovar()">Aprovar</button>
   </div>
-</div>
 
-<div *ngIf="todo?.pendingChange">
-  <button (click)="aprovar()">Aprovar</button>
-  <button (click)="rejeitar()">Rejeitar</button>
-</div>
-
-<div *ngIf="!todo?.pendingChange">
-  <p>Nenhuma alteração pendente para esta tarefa.</p>
+  <div *ngIf="!todo?.pendingChange">
+    <p>Nenhuma alteração pendente para esta tarefa.</p>
+  </div>
 </div>

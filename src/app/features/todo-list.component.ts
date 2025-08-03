@@ -24,6 +24,10 @@ export class TodoListComponent implements OnInit{
     });
   }
 
+  goNewTask() {
+    this.router.navigate(['/nova']);
+  }
+
   editar(id: number) {
     // exemplo: navegar para rota /editar/:id
     console.log('editar', id);

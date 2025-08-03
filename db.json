@@ -14,8 +14,27 @@
           "done": true
         }
       ],
-      "status": "RASCUNHO",
-      "pendingChange": null
+      "status": "PENDENTE_APROVACAO",
+      "pendingChange": {
+        "title": "Estudar Angular",
+        "description": "Revisar módulo de componentes",
+        "subtasks": [
+          {
+            "title": "Instalar Angular CLI",
+            "done": false
+          },
+          {
+            "title": "Criar projeto com standalone",
+            "done": true
+          },
+          {
+            "title": "",
+            "done": false
+          }
+        ],
+        "status": "PENDENTE_APROVACAO",
+        "pendingChange": null
+      }
     },
     {
       "id": 1754223823679,
@@ -61,6 +80,27 @@
         "status": "PENDENTE_APROVACAO",
         "pendingChange": null
       }
+    },
+    {
+      "id": 1754229012403,
+      "title": "Estudar Angular",
+      "description": "Revisar módulo de componentes",
+      "subtasks": [
+        {
+          "title": "Instalar Angular CLI",
+          "done": false
+        },
+        {
+          "title": "Criar projeto com standalone",
+          "done": true
+        },
+        {
+          "title": "",
+          "done": false
+        }
+      ],
+      "status": "RASCUNHO",
+      "pendingChange": null
     }
   ]
 }

@@ -1,7 +1,7 @@
 <div class="container">
   <h2>📋 Lista de Tarefas</h2>
   <div class="top-bar">
-    <a routerLink="/nova" class="btn-nova-tarefa">+ Nova Tarefa</a>
+    <button class="btn-nova-tarefa" type="button" (click)="goNewTask()">+ Nova Tarefa</button>
   </div>
 
   <ul *ngIf="todos.length > 0; else empty">

@@ -1,33 +1,35 @@
-<h2>📝 Nova Tarefa</h2>
-<div class="actions">
-  <button type="button" (click)="voltar()">Voltar para a listagem</button>
-</div>
-<form [formGroup]="form" (ngSubmit)="saveAsDraft()">
-  <label>
-    Título:
-    <input formControlName="title" />
-  </label>
-
-  <label>
-    Descrição:
-    <textarea formControlName="description"></textarea>
-  </label>
-
-  <h3>Subtarefas:</h3>
-  <div formArrayName="subtasks">
-    <div *ngFor="let subtask of subtasks.controls; let i = index" [formGroupName]="i">
-      <input formControlName="title" placeholder="Descrição da subtarefa" />
-      <input type="checkbox" formControlName="done" />
-      <button type="button" (click)="removeSubtask(i)">Remover</button>
-    </div>
+<div class="container">
+  <h2>📝 Nova Tarefa</h2>
+  <div class="top-bar-form">
+    <button class="voltar" type="button" (click)="voltar()">Voltar</button>
   </div>
+  <form [formGroup]="form" (ngSubmit)="saveAsDraft()">
+    <label>
+      Título:
+      <input formControlName="title" />
+    </label>
 
-  <button type="button" (click)="addSubtask()">+ Adicionar Subtarefa</button>
+    <label>
+      Descrição:
+      <textarea formControlName="description"></textarea>
+    </label>
 
-  <br /><br />
-  <button type="submit">Salvar como Rascunho</button>
-  <br /><br />
-  <button *ngIf="isEditing" type="button" (click)="saveForApproval()">
-    Salvar para Aprovação
-  </button>
-</form>
+    <h3>Subtarefas:</h3>
+    <div formArrayName="subtasks">
+      <div *ngFor="let subtask of subtasks.controls; let i = index" [formGroupName]="i">
+        <input formControlName="title" placeholder="Descrição da subtarefa" />
+        <input type="checkbox" formControlName="done" />
+        <button class="btn-remover" type="button" (click)="removeSubtask(i)">Remover</button>
+      </div>
+    </div>
+
+    <button class="btn-adicionar" type="button" (click)="addSubtask()">+ Adicionar Subtarefa</button>
+
+    <br /><br />
+    <button class="btn-salvar-rascunho" type="submit">Salvar como Rascunho</button>
+    <br /><br />
+    <button class="btn-salvar-aprovacao" *ngIf="isEditing" type="button" (click)="saveForApproval()">
+      Salvar para Aprovação
+    </button>
+  </form>
+</div>

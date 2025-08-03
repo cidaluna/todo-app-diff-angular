@@ -85,15 +85,15 @@ p {
 
 .btn-nova-tarefa {
   padding: 0.6rem 1.2rem;
-  background-color: #a88bfa; // roxo suave
-  color: white;
+  background-color: #00be1d;
+  color: black;
   text-decoration: none;
-  font-weight: 600;
   border-radius: 6px;
-  transition: background-color 0.3s ease;
+  border: none;
+  cursor: pointer;
 
   &:hover {
-    background-color: #9475f2;
+    background-color: #0d9121;
   }
 }
 
