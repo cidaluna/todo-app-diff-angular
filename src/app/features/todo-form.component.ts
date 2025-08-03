@@ -7,7 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RouterModule, ActivatedRoute } from '@angular/router';
+import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { TodoService } from './../core/services/todo.service';
 import { Status } from './../core/models/status.enum';
 import { ITodo } from './../core/models/todo.model';
@@ -24,6 +24,7 @@ export class TodoFormComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly fb = inject(FormBuilder);
   private readonly todoService = inject(TodoService);
+  private readonly router = inject(Router);
 
   form!: FormGroup;
   isEditing = false;
@@ -107,5 +108,9 @@ export class TodoFormComponent implements OnInit {
       .subscribe(() => {
         alert('Alterações salvas para aprovação!');
       });
+  }
+
+  voltar(): void {
+    this.router.navigate(['/']);
   }
 }

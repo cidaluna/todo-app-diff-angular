@@ -25,3 +25,20 @@ button {
     background-color: #219150;
   }
 }
+
+.actions {
+  margin-top: 2rem;
+
+  button {
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: #eee;
+    color: #333;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #ddd;
+    }
+  }
+}

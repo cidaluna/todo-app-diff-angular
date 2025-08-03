@@ -1,5 +1,7 @@
 <h2>📝 Nova Tarefa</h2>
-
+<div class="actions">
+  <button type="button" (click)="voltar()">Voltar para a listagem</button>
+</div>
 <form [formGroup]="form" (ngSubmit)="saveAsDraft()">
   <label>
     Título:
