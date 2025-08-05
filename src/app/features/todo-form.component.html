@@ -8,7 +8,12 @@
       Título:
       <input formControlName="title" />
       <div *ngIf="form.get('title')?.touched && form.get('title')?.invalid">
-        O título é obrigatório.
+        <div *ngIf="form.get('title')?.errors?.['required']">
+          O título é obrigatório.
+        </div>
+        <div *ngIf="form.get('title')?.errors?.['minlength']">
+          O título deve ter no mínimo 3 caracteres.
+        </div>
       </div>
     </label>
 
@@ -16,7 +21,12 @@
       Descrição:
       <textarea formControlName="description"></textarea>
       <div *ngIf="form.get('description')?.touched && form.get('description')?.invalid">
-        A descrição é obrigatória.
+        <div *ngIf="form.get('description')?.errors?.['required']">
+          A descrição é obrigatória.
+        </div>
+        <div *ngIf="form.get('description')?.errors?.['minlength']">
+          A descrição deve ter no mínimo 3 caracteres.
+        </div>
       </div>
     </label>
 

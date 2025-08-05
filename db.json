@@ -17,54 +17,17 @@
           "done": true
         }
       ],
-      "status": "ATIVA",
-      "pendingChange": {
-        "title": "Angular",
-        "description": "Estudar e praticar exercicios",
-        "subtasks": [
-          {
-            "title": "RxJS",
-            "done": false
-          },
-          {
-            "title": "Signals",
-            "done": false
-          },
-          {
-            "title": "Input e Output",
-            "done": true
-          }
-        ],
-        "status": "PENDENTE_APROVACAO",
-        "pendingChange": null
-      },
+      "status": "RASCUNHO",
+      "pendingChange": null,
       "id": 1754403763984
     },
     {
       "title": "Java",
-      "description": "Teste",
-      "subtasks": [
-        {
-          "title": "JPA",
-          "done": false
-        }
-      ],
+      "description": "JPA",
+      "subtasks": [],
       "status": "RASCUNHO",
       "pendingChange": null,
       "id": 1754403925459
-    },
-    {
-      "title": "",
-      "description": "",
-      "subtasks": [
-        {
-          "title": "",
-          "done": false
-        }
-      ],
-      "status": "RASCUNHO",
-      "pendingChange": null,
-      "id": 1754406570509
     }
   ]
 }

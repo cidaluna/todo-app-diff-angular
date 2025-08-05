@@ -38,8 +38,8 @@ export class TodoFormComponent implements OnInit {
     this.perfilUsuario = this.authService.getUserRole();
     this.todoId = Number(this.route.snapshot.paramMap.get('id'));
     this.form = this.fb.group({
-      title: ['', Validators.required],
-      description: ['', Validators.required],
+      title: ['', [Validators.required,Validators.minLength(3)]],
+      description: ['', [Validators.required,Validators.minLength(3)]],
       subtasks: this.fb.array([]),
     });
 
@@ -48,8 +48,8 @@ export class TodoFormComponent implements OnInit {
       this.todoService.getTodoById(this.todoId).subscribe((todo) => {
         this.originalTodo = todo;
         this.form.patchValue({
-          title: todo.title,
-          description: todo.description,
+          title: todo.title.trim(),
+          description: todo.description?.trim(),
         });
 
         todo.subtasks.forEach((sub) => {
@@ -72,7 +72,7 @@ export class TodoFormComponent implements OnInit {
 
   createSubtask(): FormGroup {
     return this.fb.group({
-      title: ['', Validators.required],
+      title: ['', [Validators.required, Validators.minLength(3)]],
       done: [false],
     });
   }
@@ -102,14 +102,15 @@ export class TodoFormComponent implements OnInit {
     if(this.isEditing){
       this.todoService.updateTodo(this.todoId, todoData).subscribe(() => {
         alert('Rascunho atualizado com sucesso!');
+        this.router.navigate(['/']);
       });
     } else {
       const formValue = this.form.value;
       const todo: ITodo = {
         ...todoData,
         id: Date.now(), // Só gera novo ID no modo criação
-        title: formValue.title!,          // Usando "!" para afirmar que não é undefined
-        description: formValue.description || '', // Fallback vazio se for undefined
+        title: formValue.title!.trim(),          // Usando "!" para afirmar que não é undefined
+        description: formValue.description.trim() || '', // Fallback vazio se for undefined
         subtasks: todoData.subtasks || [],
         status: Status.RASCUNHO,
       };
