@@ -9,8 +9,8 @@
       <strong>{{ todo.title }}</strong> — Status: {{ todo.status }}
       <br />
       <div class="actions">
-        <button class="btn-editar" (click)="editar(todo.id)">Editar</button>
-        <button class="btn-diff" *ngIf="todo.status === 'PENDENTE_APROVACAO'" (click)="verDiff(todo.id)">
+        <button class="btn-editar" *ngIf="role === 'EDITOR'" (click)="editar(todo.id)">Editar</button>
+        <button class="btn-diff" *ngIf="role === 'APROVADOR' && todo.status === 'PENDENTE_APROVACAO'" (click)="verDiff(todo.id)">
           Ver Diff / Aprovar
         </button>
       </div>

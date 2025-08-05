@@ -11,6 +11,7 @@ import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { TodoService } from './../core/services/todo.service';
 import { Status } from './../core/models/status.enum';
 import { ITodo } from './../core/models/todo.model';
+import { AuthService, UserRole } from '../core/services/auth.service';
 
 @Component({
   selector: 'app-todo-form',
@@ -25,17 +26,20 @@ export class TodoFormComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly todoService = inject(TodoService);
   private readonly router = inject(Router);
+  private readonly authService = inject(AuthService);
 
   form!: FormGroup;
   isEditing = false;
   todoId!: number;
   originalTodo!: ITodo;
+  perfilUsuario!: UserRole;
 
   ngOnInit(): void {
+    this.perfilUsuario = this.authService.getUserRole();
     this.todoId = Number(this.route.snapshot.paramMap.get('id'));
     this.form = this.fb.group({
       title: ['', Validators.required],
-      description: [''],
+      description: ['', Validators.required],
       subtasks: this.fb.array([]),
     });
 
@@ -82,18 +86,46 @@ export class TodoFormComponent implements OnInit {
   }
 
   saveAsDraft(): void {
-    const todo: ITodo = {
-      id: Date.now(), // para simular um ID único
+    console.log('Chamou saveAsDraft()');
+    if (this.form.invalid) {
+      console.warn('Formulário inválido!');
+      this.form.markAllAsTouched(); // mostra os erros no template
+      return;
+    }
+
+    const todoData: Partial<ITodo> = {
       ...this.form.value,
       status: Status.RASCUNHO,
       pendingChange: null,
     };
-    this.todoService.saveTodo(todo).subscribe(() => {
-      alert('Tarefa salva como rascunho!');
-    });
+
+    if(this.isEditing){
+      this.todoService.updateTodo(this.todoId, todoData).subscribe(() => {
+        alert('Rascunho atualizado com sucesso!');
+      });
+    } else {
+      const formValue = this.form.value;
+      const todo: ITodo = {
+        ...todoData,
+        id: Date.now(), // Só gera novo ID no modo criação
+        title: formValue.title!,          // Usando "!" para afirmar que não é undefined
+        description: formValue.description || '', // Fallback vazio se for undefined
+        subtasks: todoData.subtasks || [],
+        status: Status.RASCUNHO,
+      };
+      this.todoService.saveTodo(todo).subscribe(() => {
+        alert('Tarefa salva como rascunho!');
+        this.router.navigate(['/']);
+      });
+    }
   }
 
   saveForApproval(): void {
+    if (this.perfilUsuario !== 'APROVADOR') {
+      console.warn('Acesso negado: somente aprovadores podem enviar para aprovação.');
+      return;
+    }
+
     const edited: Partial<ITodo> = {
       ...this.form.value,
       status: Status.PENDENTE_APROVACAO,

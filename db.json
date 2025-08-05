@@ -1,106 +1,70 @@
 {
   "todos": [
     {
-      "id": 1,
-      "title": "Estudar Angular",
-      "description": "Revisar módulo de componentes",
+      "title": "Angular",
+      "description": "Estudar e praticar exercicios",
       "subtasks": [
         {
-          "title": "Instalar Angular CLI",
+          "title": "RxJS",
           "done": false
         },
         {
-          "title": "Criar projeto com standalone",
+          "title": "Signals",
+          "done": false
+        },
+        {
+          "title": "Input e Output",
           "done": true
-        }
-      ],
-      "status": "PENDENTE_APROVACAO",
-      "pendingChange": {
-        "title": "Estudar Angular",
-        "description": "Revisar módulo de componentes",
-        "subtasks": [
-          {
-            "title": "Instalar Angular CLI",
-            "done": false
-          },
-          {
-            "title": "Criar projeto com standalone",
-            "done": true
-          },
-          {
-            "title": "",
-            "done": false
-          }
-        ],
-        "status": "PENDENTE_APROVACAO",
-        "pendingChange": null
-      }
-    },
-    {
-      "id": 1754223823679,
-      "title": "Estudar React",
-      "description": "Startups pedem conhecimento em React, Node.JS e Python",
-      "subtasks": [
-        {
-          "title": "Criar Crud em React",
-          "done": false
-        },
-        {
-          "title": "Estudar i ntegrações",
-          "done": false
-        }
-      ],
-      "status": "RASCUNHO",
-      "pendingChange": null
-    },
-    {
-      "id": 1754224492722,
-      "title": "Estudar Java",
-      "description": "Estudar Java pois o mercado tem muitas oportunidades",
-      "subtasks": [
-        {
-          "title": "Estudar JPA",
-          "done": false
         }
       ],
       "status": "ATIVA",
       "pendingChange": {
-        "title": "Estudar Java",
-        "description": "Estudar Java pois o mercado tem muitas oportunidades",
+        "title": "Angular",
+        "description": "Estudar e praticar exercicios",
         "subtasks": [
           {
-            "title": "Estudar JPA",
+            "title": "RxJS",
             "done": false
           },
           {
-            "title": "Estudar BD",
+            "title": "Signals",
             "done": false
+          },
+          {
+            "title": "Input e Output",
+            "done": true
           }
         ],
         "status": "PENDENTE_APROVACAO",
         "pendingChange": null
-      }
+      },
+      "id": 1754403763984
     },
     {
-      "id": 1754229012403,
-      "title": "Estudar Angular",
-      "description": "Revisar módulo de componentes",
+      "title": "Java",
+      "description": "Teste",
       "subtasks": [
         {
-          "title": "Instalar Angular CLI",
+          "title": "JPA",
           "done": false
-        },
-        {
-          "title": "Criar projeto com standalone",
-          "done": true
-        },
+        }
+      ],
+      "status": "RASCUNHO",
+      "pendingChange": null,
+      "id": 1754403925459
+    },
+    {
+      "title": "",
+      "description": "",
+      "subtasks": [
         {
           "title": "",
           "done": false
         }
       ],
       "status": "RASCUNHO",
-      "pendingChange": null
+      "pendingChange": null,
+      "id": 1754406570509
     }
   ]
 }

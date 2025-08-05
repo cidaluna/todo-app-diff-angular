@@ -7,11 +7,17 @@
     <label>
       Título:
       <input formControlName="title" />
+      <div *ngIf="form.get('title')?.touched && form.get('title')?.invalid">
+        O título é obrigatório.
+      </div>
     </label>
 
     <label>
       Descrição:
       <textarea formControlName="description"></textarea>
+      <div *ngIf="form.get('description')?.touched && form.get('description')?.invalid">
+        A descrição é obrigatória.
+      </div>
     </label>
 
     <h3>Subtarefas:</h3>
@@ -26,9 +32,9 @@
     <button class="btn-adicionar" type="button" (click)="addSubtask()">+ Adicionar Subtarefa</button>
 
     <br /><br />
-    <button class="btn-salvar-rascunho" type="submit">Salvar como Rascunho</button>
+    <button [disabled]="perfilUsuario !== 'EDITOR' && form.invalid" class="btn-salvar-rascunho" type="submit">Salvar como Rascunho</button>
     <br /><br />
-    <button class="btn-salvar-aprovacao" *ngIf="isEditing" type="button" (click)="saveForApproval()">
+    <button [disabled]="perfilUsuario !== 'APROVADOR'" class="btn-salvar-aprovacao" *ngIf="isEditing && perfilUsuario === 'APROVADOR'" type="button" (click)="saveForApproval()">
       Salvar para Aprovação
     </button>
   </form>
