@@ -7,7 +7,7 @@ export type UserRole = 'EDITOR' | 'APROVADOR';
 })
 export class AuthService {
 
-  private role: UserRole = 'APROVADOR'; // Altere aqui para testar o outro perfil
+  private role: UserRole = 'EDITOR'; // Altere aqui para testar o outro perfil
 
   getUserRole(): UserRole {
     return this.role;

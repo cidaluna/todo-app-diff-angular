@@ -2,15 +2,15 @@
   "todos": [
     {
       "title": "Angular",
-      "description": "Estudar e praticar exercicios",
+      "description": "Estudar e praticar exercicios   22ww",
       "subtasks": [
         {
           "title": "RxJS",
-          "done": false
+          "done": true
         },
         {
           "title": "Signals",
-          "done": false
+          "done": true
         },
         {
           "title": "Input e Output",
@@ -23,11 +23,23 @@
     },
     {
       "title": "Java",
-      "description": "JPA",
+      "description": "JPA, MongoDb",
       "subtasks": [],
       "status": "RASCUNHO",
       "pendingChange": null,
       "id": 1754403925459
+    },
+    {
+      "title": "Oracle",
+      "description": "PL/SQL, Procedures, Schedules",
+      "subtasks": [
+        {
+          "title": "Agendamento de scripts",
+          "done": true
+        }
+      ],
+      "status": "RASCUNHO",
+      "id": 1754428686265
     }
   ]
 }

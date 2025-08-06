@@ -38,8 +38,8 @@ export class TodoFormComponent implements OnInit {
     this.perfilUsuario = this.authService.getUserRole();
     this.todoId = Number(this.route.snapshot.paramMap.get('id'));
     this.form = this.fb.group({
-      title: ['', [Validators.required,Validators.minLength(3)]],
-      description: ['', [Validators.required,Validators.minLength(3)]],
+      title: ['', [Validators.required, Validators.minLength(3)]],
+      description: ['', [Validators.required, Validators.minLength(3)]],
       subtasks: this.fb.array([]),
     });
 
@@ -55,7 +55,10 @@ export class TodoFormComponent implements OnInit {
         todo.subtasks.forEach((sub) => {
           this.subtasks.push(
             this.fb.group({
-              title: [sub.title],
+              title: [
+                sub.title,
+                [Validators.required, Validators.minLength(3)],
+              ],
               done: [sub.done],
             })
           );
@@ -93,25 +96,34 @@ export class TodoFormComponent implements OnInit {
       return;
     }
 
-    const todoData: Partial<ITodo> = {
-      ...this.form.value,
+    if (this.isEditing && !this.hasChanges()) {
+      alert('Nenhuma alteração detectada para salvar.');
+      return;
+    }
+
+    const trimmedTitle = this.form.value.title.trim();
+    const trimmedDescription = this.form.value.description.trim();
+
+    const currentData: Partial<ITodo> = {
+      title: trimmedTitle,
+      description: trimmedDescription,
+      subtasks: this.form.value.subtasks,
       status: Status.RASCUNHO,
-      pendingChange: null,
+      pendingChange: undefined,
     };
 
-    if(this.isEditing){
-      this.todoService.updateTodo(this.todoId, todoData).subscribe(() => {
+    if (this.isEditing) {
+      this.todoService.updateTodo(this.todoId, currentData).subscribe(() => {
         alert('Rascunho atualizado com sucesso!');
         this.router.navigate(['/']);
       });
     } else {
-      const formValue = this.form.value;
       const todo: ITodo = {
-        ...todoData,
+        ...currentData,
         id: Date.now(), // Só gera novo ID no modo criação
-        title: formValue.title!.trim(),          // Usando "!" para afirmar que não é undefined
-        description: formValue.description.trim() || '', // Fallback vazio se for undefined
-        subtasks: todoData.subtasks || [],
+        title: trimmedTitle, // Usando "!" para afirmar que não é undefined
+        description: trimmedDescription || '', // Fallback vazio se for undefined
+        subtasks: currentData.subtasks || [],
         status: Status.RASCUNHO,
       };
       this.todoService.saveTodo(todo).subscribe(() => {
@@ -123,14 +135,16 @@ export class TodoFormComponent implements OnInit {
 
   saveForApproval(): void {
     if (this.perfilUsuario !== 'APROVADOR') {
-      console.warn('Acesso negado: somente aprovadores podem enviar para aprovação.');
+      console.warn(
+        'Acesso negado: somente aprovadores podem enviar para aprovação.'
+      );
       return;
     }
 
     const edited: Partial<ITodo> = {
       ...this.form.value,
       status: Status.PENDENTE_APROVACAO,
-      pendingChange: null,
+      pendingChange: undefined,
     };
 
     this.todoService
@@ -145,5 +159,18 @@ export class TodoFormComponent implements OnInit {
 
   voltar(): void {
     this.router.navigate(['/']);
+  }
+
+  private hasChanges(): boolean {
+    const trimmedTitle = this.form.value.title.trim();
+    const trimmedDescription = this.form.value.description.trim();
+    const currentSubtasks = JSON.stringify(this.form.value.subtasks);
+    const originalSubtasks = JSON.stringify(this.originalTodo.subtasks);
+
+    return (
+      trimmedTitle !== this.originalTodo.title.trim() ||
+      trimmedDescription !== this.originalTodo.description?.trim() ||
+      currentSubtasks !== originalSubtasks
+    );
   }
 }
