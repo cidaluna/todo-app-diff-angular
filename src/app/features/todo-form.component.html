@@ -42,10 +42,25 @@
     <button class="btn-adicionar" type="button" (click)="addSubtask()">+ Adicionar Subtarefa</button>
 
     <br /><br />
-    <button [disabled]="perfilUsuario !== 'EDITOR' && form.invalid" class="btn-salvar-rascunho" type="submit">Salvar como Rascunho</button>
+    <!-- Botão Salvar como Rascunho: só aparece no modo criação -->
+    <button
+      *ngIf="!isEditing"
+      [disabled]="perfilUsuario !== 'EDITOR' && form.invalid"
+      class="btn-salvar-rascunho"
+      type="submit">
+      Salvar como Rascunho
+    </button>
     <br /><br />
-    <button [disabled]="perfilUsuario !== 'APROVADOR'" class="btn-salvar-aprovacao" *ngIf="isEditing && perfilUsuario === 'APROVADOR'" type="button" (click)="saveForApproval()">
+    <!-- Botão Salvar para Aprovação: EDITOR no modo edição -->
+    <button
+      *ngIf="isEditing && perfilUsuario === 'EDITOR'"
+      [disabled]="form.invalid"
+      class="btn-salvar-aprovacao"
+      type="button"
+      (click)="saveForApproval()">
       Salvar para Aprovação
     </button>
+    <br>
+
   </form>
 </div>

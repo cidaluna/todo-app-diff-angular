@@ -7,5 +7,5 @@ export interface ITodo {
   description?: string;
   subtasks: ISubtask[];
   status: Status;
-  pendingChange?: Partial<ITodo>; // usado na tela diff, é uma propriedade opcional, pode ser undefined e pode conter subconjunto de ITodo
+  pendingChange?: Partial<ITodo> | null; // usado na tela diff, é uma propriedade opcional, pode ser undefined e pode conter subconjunto de ITodo
 }

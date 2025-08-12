@@ -134,17 +134,10 @@ export class TodoFormComponent implements OnInit {
   }
 
   saveForApproval(): void {
-    if (this.perfilUsuario !== 'APROVADOR') {
-      console.warn(
-        'Acesso negado: somente aprovadores podem enviar para aprovação.'
-      );
-      return;
-    }
-
+    console.log('Chamou saveForApproval');
     const edited: Partial<ITodo> = {
       ...this.form.value,
       status: Status.PENDENTE_APROVACAO,
-      pendingChange: undefined,
     };
 
     this.todoService
@@ -154,6 +147,7 @@ export class TodoFormComponent implements OnInit {
       })
       .subscribe(() => {
         alert('Alterações salvas para aprovação!');
+        this.router.navigate(['/']);
       });
   }
 

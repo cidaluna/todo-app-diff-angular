@@ -39,11 +39,11 @@ export class TodoDiffComponent implements OnInit {
     const atualizada: ITodo = {
       ...this.todo,
       ...this.todo.pendingChange,
-      pendingChange: undefined,
+      pendingChange: null,
       status: Status.ATIVA
     };
 
-    this.todoService.updateTodo(this.todo.id!, atualizada).subscribe(() => {
+    this.todoService.updateTodo(this.todo.id, atualizada).subscribe(() => {
       alert('Tarefa aprovada!');
       this.router.navigate(['/']);
     });
@@ -53,10 +53,10 @@ export class TodoDiffComponent implements OnInit {
     const revertida: ITodo = {
       ...this.todo,
       pendingChange: undefined,
-      status: Status.ATIVA
+      status: Status.RASCUNHO
     };
 
-    this.todoService.updateTodo(this.todo.id!, revertida).subscribe(() => {
+    this.todoService.updateTodo(this.todo.id, revertida).subscribe(() => {
       alert('Alterações rejeitadas!');
       this.router.navigate(['/']);
     });
