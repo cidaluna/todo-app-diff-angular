@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TodoFormComponent } from './todo-form.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ActivatedRoute } from '@angular/router';
 
 describe('TodoFormComponent', () => {
   let component: TodoFormComponent;
@@ -8,7 +10,10 @@ describe('TodoFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TodoFormComponent]
+      imports: [TodoFormComponent, HttpClientTestingModule],
+      providers: [
+        { provide: ActivatedRoute, useValue: { snapshot: { paramMap: new Map() } } }
+      ]
     })
     .compileComponents();
 
