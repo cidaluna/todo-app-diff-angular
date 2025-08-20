@@ -4,11 +4,12 @@ import { ITodo } from '../core/models/todo.model';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService, UserRole } from '../core/services/auth.service';
+import { TodoDetailComponent } from './todo-detail/todo-detail.component';
 
 @Component({
   selector: 'app-todo-list',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, TodoDetailComponent],
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss'],
 })
@@ -18,6 +19,7 @@ export class TodoListComponent implements OnInit{
   private readonly router = inject(Router);
 
   todos: ITodo[] = [];
+  selectedTodo: ITodo | null = null;
 
   constructor(private readonly authService: AuthService) {
     this.role = this.authService.getUserRole(); // confere o perfil do usuário
@@ -44,5 +46,17 @@ export class TodoListComponent implements OnInit{
     // exemplo: navegar para rota /diff/:id
     console.log('verDiff', id);
     this.router.navigate(['/diff', id]);
+  }
+
+  verDetalhes(todoId: number) {
+    const todo = this.todos.find(t => t.id === todoId);
+    console.log('Abrindo modal para:', todo);
+    if (todo) {
+        this.selectedTodo = todo; // Abre o modal todo detail      }
+    }
+  }
+
+  fecharModal() {
+    this.selectedTodo = null;
   }
 }

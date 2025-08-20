@@ -19,7 +19,7 @@ export class TodoDiffComponent implements OnInit {
   A versão proposta para alteração (pendingChange)
   Permitir que um aprovador:
   Aprove as alterações → todo = pendingChange, limpa o pendingChange e muda status para ATIVA
-  Rejeite as alterações → limpa apenas pendingChange, mantém a original e volta status para ATIVA
+  Rejeite as alterações → limpa apenas pendingChange, mantém a original e volta status para RASCUNHO
   */
 
   private readonly route = inject(ActivatedRoute);

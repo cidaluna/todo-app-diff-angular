@@ -12,12 +12,17 @@
       <div class="actions">
         <button
           class="btn-editar"
-          *ngIf="role === 'EDITOR' && todo.status !== 'PENDENTE_APROVACAO'"
+          *ngIf="role === 'EDITOR' && todo.status === 'RASCUNHO'"
           (click)="editar(todo.id)">Editar</button>
           <!-- BOTAO PARA APROVADOR -->
         <button class="btn-diff"
         *ngIf="role === 'APROVADOR' && todo.status === 'PENDENTE_APROVACAO'"
         (click)="verDiff(todo.id)">Ver Diff </button>
+        <!-- BOTAO VER DETALHES -->
+         <button
+          class="btn-ver-detalhes"
+          *ngIf="todo.status === 'ATIVA'"
+          (click)="verDetalhes(todo.id)">Ver Detalhes</button>
       </div>
 
       <hr />
@@ -27,5 +32,11 @@
   <ng-template #empty>
     <p>Sem tarefas cadastradas.</p>
   </ng-template>
+
+  <!-- Modal Todo Detail -->
+   <app-todo-detail
+    [selectedTodo]="selectedTodo"
+    (fechar)="fecharModal()">
+  </app-todo-detail>
 
 </div>

@@ -5,11 +5,11 @@
       "description": "Estudar e praticar exercicios 20",
       "subtasks": [
         {
-          "title": "RxJS 1",
+          "title": "RxJS 3",
           "done": false
         },
         {
-          "title": "Signals 2",
+          "title": "Signals 3",
           "done": true
         },
         {
