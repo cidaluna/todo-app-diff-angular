@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Screenshot:  
 
-![Iniciando Todo App](./assets/img/start-todo-app-diff-angular-18-frontend-aparecida-goncalves.png)
+![Iniciando Todo App](./assets/img/diff-angular-18-frontend-aparecida-luna-goncalves-cida-luna-web.png)
 
 
 ## Development server

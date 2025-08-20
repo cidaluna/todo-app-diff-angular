@@ -20,6 +20,61 @@
       "status": "ATIVA",
       "pendingChange": null,
       "id": 1754403763984
+    },
+    {
+      "title": "PL/SQL",
+      "description": "Teste Oracle",
+      "subtasks": [
+        {
+          "title": "Join",
+          "done": false
+        },
+        {
+          "title": "RollUp",
+          "done": false
+        },
+        {
+          "title": "Grouping Sets",
+          "done": false
+        }
+      ],
+      "status": "PENDENTE_APROVACAO",
+      "id": 1755728164517,
+      "pendingChange": {
+        "title": "PL/SQL - ROLLUP",
+        "description": "Teste Oracle",
+        "subtasks": [
+          {
+            "title": "Join",
+            "done": false
+          },
+          {
+            "title": "RollUp",
+            "done": false
+          },
+          {
+            "title": "Grouping Sets",
+            "done": false
+          }
+        ],
+        "status": "PENDENTE_APROVACAO"
+      }
+    },
+    {
+      "title": "Java",
+      "description": "Teste Java 21",
+      "subtasks": [
+        {
+          "title": "JPA",
+          "done": false
+        },
+        {
+          "title": "Spring Boot",
+          "done": true
+        }
+      ],
+      "status": "RASCUNHO",
+      "id": 1755728197618
     }
   ]
 }
