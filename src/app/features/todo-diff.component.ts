@@ -65,4 +65,59 @@ export class TodoDiffComponent implements OnInit {
   voltar() {
     this.router.navigate(['/']);
   }
+
+  /**
+ * Compara dois objetos e retorna um objeto delta indicando quais campos são diferentes.
+ * Suporta tipos: string, number, boolean, arrays, arrays de objetos, objetos aninhados.
+ */
+compareObjects(original: any, edited: any): any {
+  const delta: any = {};
+
+  // Junta todas as chaves dos dois objetos para garantir que todos os campos sejam comparados
+  const allKeys = new Set([
+    ...Object.keys(original || {}),
+    ...Object.keys(edited || {})
+  ]);
+
+  // Percorre cada chave
+  allKeys.forEach(key => {
+    const origVal = original?.[key];
+    const editVal = edited?.[key];
+
+    // Usa switch(true) para tratar diferentes tipos de campo
+    switch (true) {
+      // Caso ambos sejam arrays
+      case Array.isArray(origVal) && Array.isArray(editVal):
+        delta[key] = [];
+        // Compara cada item do array, considerando o maior tamanho
+        const maxLen = Math.max(origVal.length, editVal.length);
+        for (let i = 0; i < maxLen; i++) {
+          switch (true) {
+            // Se o item for objeto, compara recursivamente
+            case typeof origVal[i] === 'object' && typeof editVal[i] === 'object':
+              delta[key][i] = this.compareObjects(origVal[i], editVal[i]);
+              break;
+            // Caso contrário, compara valores primitivos
+            default:
+              delta[key][i] = origVal[i] !== editVal[i];
+          }
+        }
+        break;
+
+      // Caso ambos sejam objetos (e não null)
+      case typeof origVal === 'object' && origVal !== null &&
+           typeof editVal === 'object' && editVal !== null:
+        // Compara recursivamente objetos aninhados
+        delta[key] = this.compareObjects(origVal, editVal);
+        break;
+
+      // Caso padrão: compara valores primitivos (string, number, boolean)
+      default:
+        delta[key] = origVal !== editVal;
+    }
+  });
+
+  // Retorna o objeto delta, indicando diferenças por campo
+  return delta;
+}
 }
