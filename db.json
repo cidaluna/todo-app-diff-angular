@@ -22,7 +22,7 @@
       "id": 1754403763984
     },
     {
-      "title": "PL/SQL",
+      "title": "PL/SQL - ROLLUP",
       "description": "Teste Oracle",
       "subtasks": [
         {
@@ -38,27 +38,9 @@
           "done": false
         }
       ],
-      "status": "PENDENTE_APROVACAO",
+      "status": "ATIVA",
       "id": 1755728164517,
-      "pendingChange": {
-        "title": "PL/SQL - ROLLUP",
-        "description": "Teste Oracle",
-        "subtasks": [
-          {
-            "title": "Join",
-            "done": false
-          },
-          {
-            "title": "RollUp",
-            "done": false
-          },
-          {
-            "title": "Grouping Sets",
-            "done": false
-          }
-        ],
-        "status": "PENDENTE_APROVACAO"
-      }
+      "pendingChange": null
     },
     {
       "title": "Java",

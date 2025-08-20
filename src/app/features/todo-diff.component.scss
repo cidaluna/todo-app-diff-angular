@@ -27,12 +27,25 @@
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.original {
-  background-color: #f9f9f9;
-}
+// .original {
+//   background-color: #f9f9f9;
+// }
 
-.proposed {
-  background-color: #e6f7ff;
+// .proposed {
+//   background-color: #f9f9f9;
+// }
+
+/* Adicionado */
+.added {
+  background-color: #5cd578; /* verde */
+}
+/* Removido */
+.removed {
+  background-color: #fa8791; /* vermelho */
+}
+/* Alterado */
+.changed {
+  background-color: #7abaff; /* azul */
 }
 
 button.btn-aprovar {

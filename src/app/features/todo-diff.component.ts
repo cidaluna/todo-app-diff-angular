@@ -27,10 +27,18 @@ export class TodoDiffComponent implements OnInit {
   private readonly todoService = inject(TodoService);
 
   todo!: ITodo;
+  delta: any = {};
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.todoService.getTodoById(id).subscribe(todo => this.todo = todo);
+    this.todoService.getTodoById(id).subscribe(todo => {
+      this.todo = todo;
+      // Só gera o delta se todo e pendingChange existirem
+      if (this.todo && this.todo.pendingChange) {
+        this.delta = this.compareObjects(this.todo, this.todo.pendingChange);
+        console.log('Delta:', this.delta);
+      }
+    });
   }
 
   aprovar(): void {
@@ -84,36 +92,46 @@ compareObjects(original: any, edited: any): any {
     const origVal = original?.[key];
     const editVal = edited?.[key];
 
-    // Usa switch(true) para tratar diferentes tipos de campo
-    switch (true) {
-      // Caso ambos sejam arrays
-      case Array.isArray(origVal) && Array.isArray(editVal):
-        delta[key] = [];
-        // Compara cada item do array, considerando o maior tamanho
-        const maxLen = Math.max(origVal.length, editVal.length);
-        for (let i = 0; i < maxLen; i++) {
-          switch (true) {
-            // Se o item for objeto, compara recursivamente
-            case typeof origVal[i] === 'object' && typeof editVal[i] === 'object':
-              delta[key][i] = this.compareObjects(origVal[i], editVal[i]);
-              break;
-            // Caso contrário, compara valores primitivos
-            default:
-              delta[key][i] = origVal[i] !== editVal[i];
-          }
+    // Campo adicionado
+    if (origVal === undefined && editVal !== undefined) {
+      delta[key] = 'added';
+    }
+    // Campo removido
+    else if (origVal !== undefined && editVal === undefined) {
+      delta[key] = 'removed';
+    }
+    // Arrays
+    else if (Array.isArray(origVal) && Array.isArray(editVal)) {
+      delta[key] = [];
+      const maxLen = Math.max(origVal.length, editVal.length);
+      for (let i = 0; i < maxLen; i++) {
+        if (origVal[i] === undefined && editVal[i] !== undefined) {
+          delta[key][i] = 'added';
+        } else if (origVal[i] !== undefined && editVal[i] === undefined) {
+          delta[key][i] = 'removed';
+        } else if (typeof origVal[i] === 'object' && typeof editVal[i] === 'object') {
+          delta[key][i] = this.compareObjects(origVal[i], editVal[i]);
+        } else if (origVal[i] !== editVal[i]) {
+          delta[key][i] = 'changed';
+        } else {
+          delta[key][i] = 'equal';
         }
-        break;
-
-      // Caso ambos sejam objetos (e não null)
-      case typeof origVal === 'object' && origVal !== null &&
-           typeof editVal === 'object' && editVal !== null:
-        // Compara recursivamente objetos aninhados
-        delta[key] = this.compareObjects(origVal, editVal);
-        break;
-
-      // Caso padrão: compara valores primitivos (string, number, boolean)
-      default:
-        delta[key] = origVal !== editVal;
+      }
+    }
+    // Objetos aninhados
+    else if (
+      typeof origVal === 'object' && origVal !== null &&
+      typeof editVal === 'object' && editVal !== null
+    ) {
+      delta[key] = this.compareObjects(origVal, editVal);
+    }
+    // Primitivos e booleanos
+    else if (origVal !== editVal) {
+      delta[key] = 'changed';
+    }
+    // Igual
+    else {
+      delta[key] = 'equal';
     }
   });
 
