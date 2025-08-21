@@ -23,7 +23,7 @@
       <p *ngIf="todo.pendingChange?.subtasks"><strong>Subtarefas:</strong></p>
       <ul>
         <li *ngFor="let s of todo.subtasks; let i = index"
-        [ngClass]="delta?.subtasks?.[i]">
+        [ngClass]="getDeltaClass(delta?.subtasks?.[i])">
           {{ s.title }} - {{ s.done ? 'Feita' : 'Pendente' }}
         </li>
       </ul>
@@ -37,7 +37,7 @@
       <p *ngIf="todo.pendingChange?.subtasks"><strong>Subtarefas:</strong></p>
       <ul>
         <li *ngFor="let s of todo.pendingChange?.subtasks; let i = index"
-        [ngClass]="delta?.subtasks?.[i]">
+        [ngClass]="getDeltaClass(delta?.subtasks?.[i])">
           {{ s.title }} - {{ s.done ? 'Feita' : 'Pendente' }}
         </li>
       </ul>

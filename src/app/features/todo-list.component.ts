@@ -32,6 +32,13 @@ export class TodoListComponent implements OnInit{
     });
   }
 
+  trocarUsuario() {
+    // Alterna entre EDITOR e APROVADOR
+    this.role = this.role === 'EDITOR' ? 'APROVADOR' : 'EDITOR';
+    this.authService.setUserRole(this.role);
+    // Opcional: recarregar a lista ou atualizar a tela
+  }
+
   goNewTask() {
     this.router.navigate(['/nova']);
   }
