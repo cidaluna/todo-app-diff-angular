@@ -1,0 +1,114 @@
+:host {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.container {
+  width: 100%;
+  max-width: 800px;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.diff-container {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.card {
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+// .original {
+//   background-color: #f9f9f9;
+// }
+
+// .proposed {
+//   background-color: #f9f9f9;
+// }
+
+/* Adicionado */
+.added {
+  background-color: #5cd578; /* verde */
+}
+/* Removido */
+.removed {
+  background-color: #fa8791; /* vermelho */
+}
+/* Alterado */
+.changed {
+  background-color: #7abaff; /* azul */
+}
+
+button.btn-aprovar {
+  margin-right: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  background-color: #478cf4;
+  color: white;
+
+  &:hover {
+    background-color: #1367e4;
+  }
+}
+
+button.btn-rejeitar {
+  margin-right: 1rem;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  background-color: #f4475e;
+  color: white;
+
+  &:hover {
+    background-color: #d21932;
+  }
+}
+
+.top-bar-diff {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+
+  button.voltar {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    background-color: #755cb8;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #6b3ba5;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1rem;
+  }
+
+  button {
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
+
+  button.voltar {
+    width: fit-content;
+  }
+}

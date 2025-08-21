@@ -1,0 +1,55 @@
+<div class="container">
+  <h2>Comparação da Tarefa</h2>
+  <div class="top-bar-diff" style="display: flex; align-items: center; justify-content: space-between;">
+    <div class="delta-legend" style="display: flex; gap: 1rem;"><strong>Legenda: </strong>
+      <span style="background: #5cd578; padding: 0.3rem 0.6rem; color: #155724;">
+        Adicionado
+      </span>
+      <span style="background: #fa8791; padding: 0.3rem 0.6rem; color: #721c24;">
+        Removido
+      </span>
+      <span style="background: #7abaff; padding: 0.3rem 0.6rem; color: #004085;">
+        Alterado
+      </span>
+    </div>
+    <button class="voltar" type="button" (click)="voltar()">Voltar</button>
+  </div>
+  <div *ngIf="todo && todo.pendingChange" class="diff-container">
+    <div class="card original">
+      <h3>Original (Antes)</h3>
+      <p [ngClass]="delta?.title"><strong>Título:</strong> {{ todo.title }}</p>
+      <p [ngClass]="delta?.description"><strong>Descrição:</strong> {{ todo.description }}</p>
+      <p [ngClass]="delta?.status"><strong>Status:</strong> {{ todo.status }}</p>
+      <p *ngIf="todo.pendingChange?.subtasks"><strong>Subtarefas:</strong></p>
+      <ul>
+        <li *ngFor="let s of todo.subtasks; let i = index"
+        [ngClass]="getDeltaClass(delta?.subtasks?.[i])">
+          {{ s.title }} - {{ s.done ? 'Feita' : 'Pendente' }}
+        </li>
+      </ul>
+    </div>
+
+    <div class="card proposed">
+      <h3>Proposta (Depois)</h3>
+      <p [ngClass]="delta?.title"><strong>Título:</strong> {{ todo.pendingChange.title }}</p>
+      <p [ngClass]="delta?.description"><strong>Descrição:</strong> {{ todo.pendingChange.description }}</p>
+      <p [ngClass]="delta?.status"><strong>Status:</strong> {{ todo.status }}</p>
+      <p *ngIf="todo.pendingChange?.subtasks"><strong>Subtarefas:</strong></p>
+      <ul>
+        <li *ngFor="let s of todo.pendingChange?.subtasks; let i = index"
+        [ngClass]="getDeltaClass(delta?.subtasks?.[i])">
+          {{ s.title }} - {{ s.done ? 'Feita' : 'Pendente' }}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div *ngIf="todo?.pendingChange">
+    <button class="btn-rejeitar" (click)="rejeitar()">Rejeitar</button>
+    <button class="btn-aprovar" (click)="aprovar()">Aprovar</button>
+  </div>
+
+  <div *ngIf="!todo?.pendingChange">
+    <p>Nenhuma alteração pendente para esta tarefa.</p>
+  </div>
+</div>

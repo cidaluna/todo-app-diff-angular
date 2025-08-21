@@ -1,0 +1,20 @@
+<!-- Modal de Detalhes -->
+<div class="modal-detalhes" *ngIf="selectedTodo" (click)="fecharModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Detalhes da Tarefa</h2>
+      <button class="btn-ver-detalhes btn-fechar-topo" (click)="fecharModal()">Fechar</button>
+    </div>
+    <p><strong>Título:</strong> {{ selectedTodo.title }}</p>
+    <p><strong>Descrição:</strong> {{ selectedTodo.description }}</p>
+    <p><strong>Status:</strong> {{ selectedTodo.status }}</p>
+    <div *ngIf="selectedTodo.subtasks?.length">
+      <h4>Subtarefas:</h4>
+      <ul>
+        <li *ngFor="let sub of selectedTodo.subtasks">
+          {{ sub.title }} - {{ sub.done ? 'Concluída' : 'Pendente' }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
