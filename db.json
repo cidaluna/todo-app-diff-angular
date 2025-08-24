@@ -55,8 +55,23 @@
           "done": true
         }
       ],
-      "status": "RASCUNHO",
-      "id": 1755728197618
+      "status": "PENDENTE_APROVACAO",
+      "id": 1755728197618,
+      "pendingChange": {
+        "title": "Java",
+        "description": "Teste Java 17",
+        "subtasks": [
+          {
+            "title": "JPA 17",
+            "done": false
+          },
+          {
+            "title": "Spring Boot",
+            "done": true
+          }
+        ],
+        "status": "PENDENTE_APROVACAO"
+      }
     }
   ]
 }

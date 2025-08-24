@@ -14,7 +14,13 @@
     </div>
     <button class="voltar" type="button" (click)="voltar()">Voltar</button>
   </div>
-  <div *ngIf="todo && todo.pendingChange" class="diff-container">
+
+  <div *ngIf="isLoading" style="display: flex; flex-direction: column; align-items: center; margin: 2rem 0;">
+    <div class="spinner" style="width:40px;height:40px;border:4px solid #7abaff;border-top:4px solid #fa8791;border-radius:50%;animation:spin 1s linear infinite;"></div>
+    <p style="margin-top:1rem;">Aguarde! Carregando dados...</p>
+  </div>
+
+  <div *ngIf="!isLoading && todo && todo.pendingChange" class="diff-container">
     <div class="card original">
       <h3>Original (Antes)</h3>
       <p [ngClass]="delta?.title"><strong>Título:</strong> {{ todo.title }}</p>

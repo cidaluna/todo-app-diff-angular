@@ -28,6 +28,7 @@ export class TodoDiffComponent implements OnInit {
 
   todo!: ITodo;
   delta: any = {};
+  isLoading = true;
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -38,6 +39,10 @@ export class TodoDiffComponent implements OnInit {
         this.delta = this.compareObjects(this.todo, this.todo.pendingChange);
         console.log('Delta:', this.delta);
       }
+      // Simula 5 segundos de loading
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 5000);
     });
   }
 
