@@ -16,7 +16,7 @@
   </div>
 
   <div *ngIf="isLoading" style="display: flex; flex-direction: column; align-items: center; margin: 2rem 0;">
-    <div class="spinner" style="width:40px;height:40px;border:4px solid #7abaff;border-top:4px solid #fa8791;border-radius:50%;animation:spin 1s linear infinite;"></div>
+    <mat-progress-spinner color="primary" mode="indeterminate" diameter="40"></mat-progress-spinner>
     <p style="margin-top:1rem;">Aguarde! Carregando dados...</p>
   </div>
 
