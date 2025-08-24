@@ -40,10 +40,13 @@ export class TodoDiffComponent implements OnInit {
         this.delta = this.compareObjects(this.todo, this.todo.pendingChange);
         console.log('Delta:', this.delta);
       }
+      // Loading termina assim que os dados chegam
+      this.isLoading = false;
+
       // Simula 5 segundos de loading
-      setTimeout(() => {
-        this.isLoading = false;
-      }, 5000);
+      // setTimeout(() => {
+      //   this.isLoading = false;
+      // }, 5000);
     });
   }
 
