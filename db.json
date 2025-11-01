@@ -1,77 +1,70 @@
 {
   "todos": [
     {
-      "title": "Angular",
-      "description": "Estudar e praticar exercicios 20",
+      "title": "Frontend",
+      "description": "Estudar e praticar exercicios 01",
+	  "channels": ["API", "WEB"],
       "subtasks": [
         {
-          "title": "RxJS 3",
+          "subtitle": "RxJS",
+          "done": false,
+          "transaction": [
+            {
+              "label": "FR15",
+              "location": ["POIU"]
+            },
+            {
+              "label": "DF61",
+              "location": ["PLKM", "HGBN"]
+            }
+          ]
+        },
+        {
+          "title": "Typescript",
           "done": false
         },
         {
-          "title": "Signals 3",
-          "done": true
-        },
-        {
-          "title": "Input e Output 3",
+          "title": "UX",
           "done": true
         }
       ],
-      "status": "ATIVA",
-      "pendingChange": null,
-      "id": 1754403763984
+      "status": "RASCUNHO",
+      "id": "1754403763994",
+	  "pendingChange": null
     },
-    {
-      "title": "PL/SQL - ROLLUP",
-      "description": "Teste Oracle",
+	{
+      "title": "Filosofia",
+      "description": "Estudar e praticar exercicios 02",
+	  "channels": ["API"],
       "subtasks": [
         {
-          "title": "Join",
-          "done": false
+          "subtitle": "Marco Aurélio",
+          "done": true,
+          "transaction": [
+            {
+              "label": "MA58",
+              "location": ["YHTG"]
+            }
+          ]
         },
         {
-          "title": "RollUp",
-          "done": false
-        },
-        {
-          "title": "Grouping Sets",
-          "done": false
-        }
-      ],
-      "status": "ATIVA",
-      "id": 1755728164517,
-      "pendingChange": null
-    },
-    {
-      "title": "Java",
-      "description": "Teste Java 21",
-      "subtasks": [
-        {
-          "title": "JPA",
-          "done": false
-        },
-        {
-          "title": "Spring Boot",
+          "title": "Sêneca",
           "done": true
+        },
+        {
+          "title": "Epicteto",
+          "done": true,
+		  "transaction": [
+            {
+              "label": "MA99",
+              "location": ["TGRF"]
+            }
+          ]
         }
       ],
-      "status": "PENDENTE_APROVACAO",
-      "id": 1755728197618,
-      "pendingChange": {
-        "title": "Java",
-        "description": "Teste Java 17",
-        "subtasks": [
-          {
-            "title": "JPA 17",
-            "done": false
-          },
-          {
-            "title": "Spring Boot",
-            "done": true
-          }
-        ],
-        "status": "PENDENTE_APROVACAO"
-      }
+      "status": "RASCUNHO",
+      "id": "1754403763114",
+	  "pendingChange": null
     }
   ]
 }

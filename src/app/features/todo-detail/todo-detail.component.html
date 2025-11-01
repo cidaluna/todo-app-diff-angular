@@ -2,17 +2,35 @@
 <div class="modal-detalhes" *ngIf="selectedTodo" (click)="fecharModal()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <div class="modal-header">
-      <h2>Detalhes da Tarefa</h2>
+      <h2>Modal: Detalhes da Tarefa</h2>
       <button class="btn-ver-detalhes btn-fechar-topo" (click)="fecharModal()">Fechar</button>
     </div>
+    <!-- Título -->
     <p><strong>Título:</strong> {{ selectedTodo.title }}</p>
+
+    <!-- Descrição -->
     <p><strong>Descrição:</strong> {{ selectedTodo.description }}</p>
+
+    <!-- Status -->
     <p><strong>Status:</strong> {{ selectedTodo.status }}</p>
+
+    <!-- Subtarefas -->
     <div *ngIf="selectedTodo.subtasks?.length">
       <h4>Subtarefas:</h4>
       <ul>
         <li *ngFor="let sub of selectedTodo.subtasks">
-          {{ sub.title }} - {{ sub.done ? 'Concluída' : 'Pendente' }}
+          <strong>{{ sub.subtitle }}</strong> - {{ sub.done ? 'Concluída' : 'Pendente' }}
+
+          <!-- Transações -->
+          <div *ngIf="sub.transaction?.length">
+            <h5>Transações:</h5>
+            <ul>
+              <li *ngFor="let tx of sub.transaction">
+                <strong>Label:</strong> {{ tx.label }}<br />
+                <strong>Location:</strong> {{ tx.location }}
+              </li>
+            </ul>
+          </div>
         </li>
       </ul>
     </div>

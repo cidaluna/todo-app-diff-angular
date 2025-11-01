@@ -1,66 +1,112 @@
 <div class="container">
-  <h2>📝 Nova Tarefa</h2>
+  <h2 class="form-title">📝 {{ isEditing ? 'Editar Tarefa' : 'Nova Tarefa' }}</h2>
+
   <div class="top-bar-form">
     <button class="voltar" type="button" (click)="voltar()">Voltar</button>
   </div>
-  <form [formGroup]="form" (ngSubmit)="saveAsDraft()">
-    <label>
-      Título:
-      <input formControlName="title" />
-      <div *ngIf="form.get('title')?.touched && form.get('title')?.invalid">
-        <div *ngIf="form.get('title')?.errors?.['required']">
-          O título é obrigatório.
-        </div>
-        <div *ngIf="form.get('title')?.errors?.['minlength']">
-          O título deve ter no mínimo 3 caracteres.
-        </div>
-      </div>
-    </label>
 
-    <label>
-      Descrição:
-      <textarea formControlName="description"></textarea>
-      <div *ngIf="form.get('description')?.touched && form.get('description')?.invalid">
-        <div *ngIf="form.get('description')?.errors?.['required']">
-          A descrição é obrigatória.
-        </div>
-        <div *ngIf="form.get('description')?.errors?.['minlength']">
-          A descrição deve ter no mínimo 3 caracteres.
-        </div>
-      </div>
-    </label>
+  <form [formGroup]="form" (ngSubmit)="isEditing ? saveForApproval() : saveAsDraft()">
+    <!-- ID (somente leitura em edição) -->
+    <div *ngIf="isEditing" class="form-group">
+      <label for="id">ID:</label>
+      <input id="id" type="text" formControlName="id" readonly />
+    </div>
 
-    <h3>Subtarefas:</h3>
-    <div formArrayName="subtasks">
-      <div *ngFor="let subtask of subtasks.controls; let i = index" [formGroupName]="i">
-        <input formControlName="title" placeholder="Descrição da subtarefa" />
-        <input type="checkbox" formControlName="done" />
-        <button class="btn-remover" type="button" (click)="removeSubtask(i)">Remover</button>
+    <!-- Título -->
+    <div class="form-group">
+      <label for="title">Título:</label>
+      <input id="title" formControlName="title" placeholder="Digite o título da tarefa" />
+      <div class="error-message" *ngIf="form.get('title')?.touched && form.get('title')?.invalid">
+        <div *ngIf="form.get('title')?.errors?.['required']">O título é obrigatório.</div>
+        <div *ngIf="form.get('title')?.errors?.['minlength']">O título deve ter no mínimo 3 caracteres.</div>
       </div>
     </div>
 
-    <button class="btn-adicionar" type="button" (click)="addSubtask()">+ Adicionar Subtarefa</button>
+    <!-- Descrição -->
+    <div class="form-group">
+      <label for="description">Descrição:</label>
+      <textarea id="description" formControlName="description" placeholder="Digite a descrição da tarefa"></textarea>
+      <div *ngIf="form.get('description')?.touched && form.get('description')?.invalid">
+        <div *ngIf="form.get('description')?.errors?.['required']">A descrição é obrigatória.</div>
+        <div *ngIf="form.get('description')?.errors?.['minlength']">A descrição deve ter no mínimo 3 caracteres.</div>
+      </div>
+    </div>
 
-    <br /><br />
-    <!-- Botão Salvar como Rascunho: só aparece no modo criação -->
-    <button
-      *ngIf="!isEditing"
-      [disabled]="perfilUsuario !== 'EDITOR' && form.invalid"
-      class="btn-salvar-rascunho"
-      type="submit">
-      Salvar como Rascunho
-    </button>
-    <br /><br />
-    <!-- Botão Salvar para Aprovação: EDITOR no modo edição -->
-    <button
-      *ngIf="isEditing && perfilUsuario === 'EDITOR'"
-      [disabled]="form.invalid"
-      class="btn-salvar-aprovacao"
-      type="button"
-      (click)="saveForApproval()">
-      Salvar para Aprovação
-    </button>
-    <br>
+    <!-- Canais -->
+      <div formGroupName="channels">
+        <label>
+          <input type="checkbox" formControlName="API" />
+          API
+        </label>
+        <label>
+          <input type="checkbox" formControlName="WEB" />
+          WEB
+        </label>
+    </div>
 
+    <!-- Subtarefas -->
+    <h3 class="section-title">Subtarefas:</h3>
+    <div formArrayName="subtasks">
+      <div *ngFor="let subtask of subtasks.controls; let i = index" [formGroupName]="i" class="subtask-block">
+        <div class="form-group">
+          <label for="subtitle-{{ i }}">Subtarefa:</label>
+          <input id="subtitle-{{ i }}" formControlName="subtitle" placeholder="Descrição da subtarefa" />
+        </div>
+        <div class="form-group">
+          <label>
+            Concluída:
+            <input type="checkbox" formControlName="done" />
+          </label>
+        </div>
+        <button class="btn-remover" type="button" (click)="removeSubtask(i)">Remover Subtarefa</button>
+
+        <!-- Transações -->
+        <div formArrayName="transaction" class="transactions">
+          <h4 class="section-title">Transações:</h4>
+          <div *ngFor="let tx of getTransactions(i).controls; let j = index" [formGroupName]="j" class="transaction-block">
+            <div class="form-group">
+              <label for="label-{{ i }}-{{ j }}">Label:</label>
+              <input id="label-{{ i }}-{{ j }}" formControlName="label" placeholder="Digite o label da transação" />
+            </div>
+
+             <!-- Locations -->
+            <div class="form-group">
+              <ul formArrayName="location">
+                <li *ngFor="let loc of getLocationArray(i, j).controls; let k = index">
+                  <label for="location-{{ i }}-{{ j }}-{{ k }}">Location:</label>
+                  <input id="location-{{ i }}-{{ j }}-{{ k }}" [formControlName]="k" placeholder="Digite o location" />
+                  <!-- <button type="button" class="btn-remover" (click)="removeLocation(i, j, k)">Remover</button> -->
+                </li>
+              </ul>
+              <!-- <button type="button" class="btn-adicionar" (click)="addLocation(i, j)">+ Adicionar Location</button> -->
+            </div>
+
+            <button type="button" class="btn-remover" (click)="removeTransaction(i, j)">Remover Transação</button>
+          </div>
+          <button type="button" class="btn-adicionar" (click)="addTransaction(i)">+ Adicionar Transação</button>
+        </div>
+      </div>
+      <button class="btn-adicionar" type="button" (click)="addSubtask()">+ Adicionar Subtarefa</button>
+    </div>
+
+    <!-- Botões de Ação -->
+    <div class="action-buttons">
+      <button
+        *ngIf="!isEditing"
+        [disabled]="perfilUsuario !== 'EDITOR' || form.invalid"
+        class="btn-salvar-rascunho"
+        type="submit">
+        Salvar como Rascunho
+      </button>
+
+      <button
+        *ngIf="isEditing && perfilUsuario === 'EDITOR'"
+        [disabled]="form.invalid"
+        class="btn-salvar-aprovacao"
+        type="button"
+        (click)="saveForApproval()">
+        Salvar para Aprovação
+      </button>
+    </div>
   </form>
 </div>
