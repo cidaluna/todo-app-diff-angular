@@ -1,0 +1,12 @@
+<div class="json-view">
+  <div
+    *ngFor="let line of lines"
+    [ngClass]="{
+      'json-line': true,
+      'highlight': line.isHighlighted,
+      'placeholder': line.isPlaceholder
+    }"
+  >
+    {{ line.content }}
+  </div>
+</div>
