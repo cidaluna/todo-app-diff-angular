@@ -1,0 +1,20 @@
+<div class="diff-container">
+  <h2>Comparação Visual</h2>
+  <div class="side-by-side">
+    <div class="left">
+      <h3>Antes</h3>
+      <div *ngFor="let row of diffRows" class="row" [ngClass]="row.statusLeft">
+        <span class="key">{{ row.key }}</span>
+        <span class="value">{{ row.leftValue ?? '-' }}</span>
+      </div>
+    </div>
+
+    <div class="right">
+      <h3>Depois</h3>
+      <div *ngFor="let row of diffRows" class="row" [ngClass]="row.statusRight">
+        <span class="key">{{ row.key }}</span>
+        <span class="value">{{ row.rightValue ?? '-' }}</span>
+      </div>
+    </div>
+  </div>
+</div>

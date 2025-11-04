@@ -75,12 +75,12 @@ export class TodoTestDiffCoComponent implements OnInit {
         const isChanged =
           JSON.stringify(valBefore) !== JSON.stringify(valAfter);
         beforeLines.push({
-          content: `"${key}": ${JSON.stringify(valBefore)},`,
+          content: `"${key}": ${JSON.stringify(valBefore, null, 2)},`,
           isHighlighted: isChanged,
           isPlaceholder: false,
         });
         afterLines.push({
-          content: `"${key}": ${JSON.stringify(valAfter)},`,
+          content: `"${key}": ${JSON.stringify(valAfter, null, 2)},`,
           isHighlighted: isChanged,
           isPlaceholder: false,
         });
@@ -142,13 +142,13 @@ export class TodoTestDiffCoComponent implements OnInit {
           JSON.stringify(beforeVal) !== JSON.stringify(afterVal);
 
         beforeLines.push({
-          content: `  "${key}": ${JSON.stringify(beforeVal)},`,
+          content: `  "${key}": ${JSON.stringify(beforeVal, null, 2)},`,
           isHighlighted: isChanged, // Destaca se houver diferença
           isPlaceholder: beforeVal === undefined, // Aplica cinza se for um placeholder
         });
 
         afterLines.push({
-          content: `  "${key}": ${JSON.stringify(afterVal)},`,
+          content: `  "${key}": ${JSON.stringify(afterVal, null, 2)},`,
           isHighlighted: isChanged, // Destaca se houver diferença
           isPlaceholder: afterVal === undefined, // Aplica cinza se for um placeholder
         });
@@ -202,28 +202,30 @@ export class TodoTestDiffCoComponent implements OnInit {
       beforeLines.push({
         content:
           beforeVal !== undefined
-            ? `  ${JSON.stringify(beforeVal)},`
-            : '  null,',
+            ? `    ${JSON.stringify(beforeVal, null, 2)},`
+            : '    null,',
         isHighlighted: !isPlaceholderBefore, // Herda o destaque da chave pai
         isPlaceholder: isPlaceholderBefore, // Aplica cinza se for um placeholder
       });
 
       afterLines.push({
         content:
-          afterVal !== undefined ? `  ${JSON.stringify(afterVal)},` : '  null,',
-        isHighlighted: !isPlaceholderAfter, // Herda o destaque da chave pai
-        isPlaceholder: isPlaceholderAfter, // Aplica cinza se for um placeholder
+          afterVal !== undefined
+            ? `    ${JSON.stringify(afterVal, null, 2)},`
+            : '    null,',
+        isHighlighted: !isPlaceholderAfter,
+        isPlaceholder: isPlaceholderAfter,
       });
     }
 
     // Adiciona a linha de fechamento do array
     beforeLines.push({
-      content: `]`,
+      content: `  ],`,
       isHighlighted: true,
       isPlaceholder: false,
     });
     afterLines.push({
-      content: `]`,
+      content: `  ],`,
       isHighlighted: true,
       isPlaceholder: false,
     });
