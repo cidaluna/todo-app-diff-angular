@@ -4,6 +4,7 @@ export const diffMock = {
     title: 'Estudar Angular',
     description: 'Revisar conceitos básicos e avançados do Angular',
     channels: ['API', 'WEB'],
+    transfer: 'valor ok',
     subtasks: [
       {
         subtitle: 'Revisar Componentes',
@@ -26,7 +27,7 @@ export const diffMock = {
       },
     ],
     status: 'PENDENTE',
-    pendingChange: null,
+    pendingChange: '',
     verify: {
       name: 'Verificação',
       info: 'Informação de verificação',
@@ -50,6 +51,9 @@ export const diffMock = {
       },
     ],
     status: 'PENDENTE',
+    verify: {
+      name: 'Verificação',
+    },
     pendingChange: null,
     test: {
       name: 'Teste',

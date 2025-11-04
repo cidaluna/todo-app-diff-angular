@@ -107,18 +107,19 @@ export class DiffChatComponent implements OnInit {
         statusAfter = 'modified';
       }
 
-      // cria placeholders do mesmo número de linhas
-      // const balancedBefore = beforeValue || '\n'.repeat(maxLines - 1);
-      // const balancedAfter = afterValue || '\n'.repeat(maxLines - 1);
 
       const placeLines = (text: string, total: number) => {
-        const current = text.split('\n').length;
-        if (current < total) {
-          const customPadding = '\n'.repeat(total - current);
-          return text + customPadding;
+        const lines = text.split('\n');
+        const missing = total - lines.length;
+
+        // Adiciona linhas vazias visíveis (ex: espaço simples)
+        if (missing > 0) {
+          for (let i = 0; i < missing; i++) {
+            lines.push(' '); // mantém alinhamento visual
+          }
         }
 
-        return text;
+        return lines.join('\n');
       };
 
       const balancedBefore = placeLines(beforeValue, maxLines);
@@ -137,33 +138,26 @@ export class DiffChatComponent implements OnInit {
   }
 
 
+   // ----------- FORMATAÇÃO DE VALORES - OK -----------
   formatValue(value: any): string {
-    if (value === null || value === undefined) {
-      return '';
-    }
+    if (value === null || value === undefined) return '';
 
-    // Caso array
     if (Array.isArray(value)) {
       if (value.length === 0) return '[]';
-
-      // Caso array de valores primitivos, exibe em linha
       if (value.every((v) => typeof v !== 'object')) {
-        //return `[ ${value.map(v => JSON.stringify(v)).join(', ')} ]`;
         return `[ ${value.join(', ')} ]`;
       }
-
-      // Caso contrário, formata cada objeto do array
-      return value
-        .map((v) => `${JSON.stringify(v, null, 2)}`)
-        .join('\n\n');
+      return (
+        '[\n' +
+        value.map((v) => '  ' + JSON.stringify(v, null, 2)).join(',\n') +
+        '\n]'
+      );
     }
 
-    //Caso seja um objeto
     if (typeof value === 'object') {
       return JSON.stringify(value, null, 2);
     }
 
-    //Caso seja string, number, boolean
     return String(value);
   }
 }
