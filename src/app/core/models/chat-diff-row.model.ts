@@ -14,3 +14,18 @@ export interface ChatDiffRow2 {
   statusRight?: 'normal' | 'modified' | 'missing';
   children?: ChatDiffRow2[];
 }
+
+// Representa um objeto genérico usado no diff (pode conter nested objetos ou arrays)
+export type DiffPrimitive = string | number | boolean | null | undefined;
+export type DiffValue = DiffPrimitive | DiffObject | DiffArray;
+export interface DiffObject {
+  [key: string]: DiffValue;
+}
+export interface DiffArray extends Array<DiffValue> {}
+
+// Estrutura usada na função fillMissingFields
+export interface FilledFields {
+  before: DiffValue;
+  after: DiffValue;
+  missingSide?: 'left' | 'right';
+}

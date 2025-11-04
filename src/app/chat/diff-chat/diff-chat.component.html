@@ -5,7 +5,7 @@
       <h3>Antes</h3>
       <div *ngFor="let row of diffRows" class="row" [ngClass]="row.statusLeft">
         <span class="key">{{ row.key }}</span>
-        <span class="value">{{ row.leftValue ?? '-' }}</span>
+        <span class="value">{{ row.leftValue }}</span>
       </div>
     </div>
 
@@ -13,7 +13,7 @@
       <h3>Depois</h3>
       <div *ngFor="let row of diffRows" class="row" [ngClass]="row.statusRight">
         <span class="key">{{ row.key }}</span>
-        <span class="value">{{ row.rightValue ?? '-' }}</span>
+        <span class="value">{{ row.rightValue }}</span>
       </div>
     </div>
   </div>

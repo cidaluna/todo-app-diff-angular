@@ -5,7 +5,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { ChatDiffRow } from '../../core/models/chat-diff-row.model';
+import { ChatDiffRow, DiffObject, DiffValue } from '../../core/models/chat-diff-row.model';
 import { CommonModule } from '@angular/common';
 import { diffMock } from '../../core/mocks/diff-chat.mock';
 
@@ -20,10 +20,9 @@ export class DiffChatComponent implements OnInit {
   diffRows: ChatDiffRow[] = [];
 
   ngOnInit(): void {
-    const before = diffMock.diffBefore;
-    const after = diffMock.diffAfter;
+    const before = diffMock.diffBefore as DiffObject;
+    const after = diffMock.diffAfter as DiffObject;
     console.log('Entrou no ngOnInit com before:', before, ' e after:', after);
-
     //Constroi o diff alinhado
     this.diffRows = this.buildAlignedDiff(before, after);
   }
@@ -48,14 +47,14 @@ export class DiffChatComponent implements OnInit {
   }
 
   // Ordena as chaves de objetos internos recursivamente
-  sortObjectKeys(value: any): any {
+  sortObjectKeys(value: DiffValue): DiffValue {
     if (Array.isArray(value)) {
       return value.map((v) => this.sortObjectKeys(v));
     }
 
     if (value && typeof value === 'object' && !Array.isArray(value)) {
       const sortedKeys = this.sortKeys(Object.keys(value));
-      const sortObj: any = {};
+      const sortObj: DiffObject = {};
       for (const key of sortedKeys) {
         sortObj[key] = this.sortObjectKeys(value[key]);
       }
@@ -64,9 +63,9 @@ export class DiffChatComponent implements OnInit {
     return value;
   }
 
-  buildAlignedDiff(beforeData: any, afterData: any): ChatDiffRow[] {
-    const customSortedBefore = this.sortObjectKeys(beforeData);
-    const customSortedAfter = this.sortObjectKeys(afterData);
+  buildAlignedDiff(beforeData: DiffObject, afterData: DiffObject): ChatDiffRow[] {
+    const customSortedBefore = this.sortObjectKeys(beforeData) as DiffObject;
+    const customSortedAfter = this.sortObjectKeys(afterData) as DiffObject;
 
     const allKeys = new Set([
       ...Object.keys(customSortedBefore || {}),
@@ -82,8 +81,6 @@ export class DiffChatComponent implements OnInit {
     for (const key of sortedKeys) {
       const beforeValue = this.formatValue(customSortedBefore?.[key]);
       const afterValue = this.formatValue(customSortedAfter?.[key]);
-
-      //if (beforeValue === undefined && afterValue === undefined) continue;
 
       // conta quantas linha cada lado ocupa
       const beforeLines = beforeValue.split('\n').length;
@@ -139,7 +136,7 @@ export class DiffChatComponent implements OnInit {
 
 
    // ----------- FORMATAÇÃO DE VALORES - OK -----------
-  formatValue(value: any): string {
+  formatValue(value: DiffValue): string {
     if (value === null || value === undefined) return '';
 
     if (Array.isArray(value)) {
