@@ -7,6 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "json-server": "json-server --watch db.json --port 3000",
+    "json-server-chat": "json-server --watch diff-chat-db.json --port 3000",
     "test": "ng test --no-watch --code-coverage"
   },
   "private": true,

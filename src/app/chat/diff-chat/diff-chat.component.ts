@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { ChatDiffRow, DiffObject, DiffValue } from '../../core/models/chat-diff-row.model';
 import { CommonModule } from '@angular/common';
-import { diffMock } from '../../core/mocks/diff-chat.mock';
+import { DiffChatService } from '../../core/services/diff-chat.service';
 
 @Component({
   selector: 'app-diff-chat',
@@ -19,53 +19,44 @@ import { diffMock } from '../../core/mocks/diff-chat.mock';
 export class DiffChatComponent implements OnInit {
   diffRows: ChatDiffRow[] = [];
 
+  constructor(private diffChatService: DiffChatService) {}
+
+  /**
+   *  - Lifecycle hook executado uma única vez, logo após a inicialização do componente.
+   * @returns void
+   */
   ngOnInit(): void {
-    const before = diffMock.diffBefore as DiffObject;
-    const after = diffMock.diffAfter as DiffObject;
-    console.log('Entrou no ngOnInit com before:', before, ' e after:', after);
-    //Constroi o diff alinhado
-    this.diffRows = this.buildAlignedDiff(before, after);
+    this.loadDataDiff();
   }
 
-  // Coloca id e title no inicio, depois o resto em ordem alfabetica
-  sortKeys(keys: string[]): string[] {
-    const priorityKeys = ['id', 'title'];
-    return keys.sort((a, b) => {
-      const aPriority = priorityKeys.indexOf(a);
-      const bPriority = priorityKeys.indexOf(b);
-
-      if (aPriority !== -1 && bPriority !== -1) {
-        return aPriority - bPriority; // Ambos sao prioritarios, mantem ordem
-      } else if (aPriority !== -1) {
-        return -1; // a vem antes
-      } else if (bPriority !== -1) {
-        return 1; // b vem antes
-      } else {
-        return a.localeCompare(b); // Ordem alfabetica
-      }
+  /**
+   *  - Chama o serviço para obter os dados de diff.
+   *  - Atualiza a propriedade `diffRows` com os dados formatados e alinhados.
+   * @returns void
+   */
+  loadDataDiff(): void {
+    this.diffChatService.getDiffData().subscribe(({ before, after }) => {
+      console.log('Dados obtidos do serviço - Before:', before, ' After:', after);
+      this.diffRows = this.buildAlignedDiff(before, after);
     });
   }
 
-  // Ordena as chaves de objetos internos recursivamente
-  sortObjectKeys(value: DiffValue): DiffValue {
-    if (Array.isArray(value)) {
-      return value.map((v) => this.sortObjectKeys(v));
-    }
 
-    if (value && typeof value === 'object' && !Array.isArray(value)) {
-      const sortedKeys = this.sortKeys(Object.keys(value));
-      const sortObj: DiffObject = {};
-      for (const key of sortedKeys) {
-        sortObj[key] = this.sortObjectKeys(value[key]);
-      }
-      return sortObj;
-    }
-    return value;
-  }
+   /**
+   * - Exibe a comparação visual entre dois objetos:
+   * - Realiza a ordenação das chaves em ambos os lados (`before` e `after`)
+   * - Compara os valores campo a campo
+   * - Define o status de modificação (normal, missing, modified)
+   * - Mantém o alinhamento visual, preenchendo linhas vazias quando necessário
+   *
+   * @param beforeData - Objeto de referência "antes da modificação"
+   * @param afterData - Objeto de referência "depois da modificação"
+   * @returns ChatDiffRow[] - Lista de linhas de diff formatadas e alinhadas.
+   */
+  buildAlignedDiff(beforeData: DiffValue, afterData: DiffValue): ChatDiffRow[] {
 
-  buildAlignedDiff(beforeData: DiffObject, afterData: DiffObject): ChatDiffRow[] {
-    const customSortedBefore = this.sortObjectKeys(beforeData) as DiffObject;
-    const customSortedAfter = this.sortObjectKeys(afterData) as DiffObject;
+    const customSortedBefore = this.diffChatService.sortObjectKeysRecursive(beforeData) as DiffObject;
+    const customSortedAfter = this.diffChatService.sortObjectKeysRecursive(afterData) as DiffObject;
 
     const allKeys = new Set([
       ...Object.keys(customSortedBefore || {}),
@@ -74,8 +65,10 @@ export class DiffChatComponent implements OnInit {
 
     console.log('All keys for diff:', allKeys);
 
-    // Aplica a ordem id, title, depois alfabetico
-    const sortedKeys = this.sortKeys(Array.from(allKeys));
+    // Aplica a ordem title, description, depois alfabetico
+    const sortedKeys = this.diffChatService
+      .sortKeys(Array.from(allKeys))
+      .filter(key => key.toLowerCase() !== 'id'); // ignora o campo 'id'
     const diffRows: ChatDiffRow[] = [];
 
     for (const key of sortedKeys) {
@@ -135,7 +128,14 @@ export class DiffChatComponent implements OnInit {
   }
 
 
-   // ----------- FORMATAÇÃO DE VALORES - OK -----------
+   /**
+   * Converte diferentes tipos de valores (primitivos, objetos ou arrays)
+   * em uma representação de string legível e formatada.
+   * Usado para exibir os dados de forma organizada nas colunas do diff.
+   *
+   * @param value - Valor a ser formatado (pode ser primitivo, array ou objeto)
+   * @returns string - Representação textual legível e formatada do valor.
+   */
   formatValue(value: DiffValue): string {
     if (value === null || value === undefined) return '';
 

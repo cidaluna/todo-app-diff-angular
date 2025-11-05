@@ -9,6 +9,7 @@ export const diffMock = {
       {
         subtitle: 'Revisar Componentes',
         done: false,
+        zero: 'novo campo',
         transaction: [
           {
             label: 'Criar Componente',
@@ -24,6 +25,7 @@ export const diffMock = {
         subtitle: 'Revisar Services',
         done: false,
         transaction: [],
+        zero: 'novo campo',
       },
     ],
     status: 'PENDENTE',
@@ -40,6 +42,7 @@ export const diffMock = {
     channels: ['API'],
     subtasks: [
       {
+        zero: 'novo campo',
         subtitle: 'Revisar Componentes',
         done: false,
         // Removido o campo "transaction"
@@ -58,6 +61,7 @@ export const diffMock = {
     test: {
       name: 'Teste',
       detail: 'Detalhe do teste',
+      idFamily: 'TF38',
     }
   }
 }
