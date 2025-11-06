@@ -5,7 +5,13 @@
       "title": "Estudar Angular",
       "description": "Revisar conceitos básicos e avançados do Angular",
       "channels": ["API", "WEB"],
-      "transfer": "valor ok",
+      "transfer": "valor transfer",
+      "localization": ["SP", "RJ", "AM"],
+      "generation": {
+        "name": "Verificação",
+        "info": "Informação de verificação",
+        "items": ["Item1", "Item2"]
+      },
       "subtasks": [
         {
           "subtitle": "Revisar Componentes",
@@ -32,7 +38,12 @@
       "pendingChange": "",
       "verify": {
         "name": "Verificação",
-        "info": "Informação de verificação"
+        "info": "Informação de verificação",
+        "items": ["Item1", "Item2"],
+        "details": {
+          "createdBy": "Admin",
+          "createdAt": "2025-01-01T10:00:00Z"
+        }
       }
     }
   ],
@@ -41,7 +52,17 @@
       "id": "101",
       "title": "Estudar Angular",
       "description": "Revisar tópicos avançados do Angular, incluindo RxJS e NgRx",
-      "channels": ["API"],
+      "channels": ["API", "WEB"],
+      "generation": {
+        "name": "Verificação",
+        "info": "Informação de verificação",
+        "items": ["Item1", "Item2"],
+        "details": {
+          "createdBy": "Admin",
+          "createdAt": "2025-01-01T10:00:00Z"
+        }
+      },
+      "localization": [],
       "subtasks": [
         {
           "zero": "novo campo",

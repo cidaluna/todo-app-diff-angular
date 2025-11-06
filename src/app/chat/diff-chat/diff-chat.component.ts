@@ -174,9 +174,11 @@ export class DiffChatComponent implements OnInit {
       // Array vazio
       if (value.length === 0) return '[]';
 
-      // Array simples (string, number, boolean)
-      if (value.every(v => typeof v !== 'object')) {
-        return `[ ${value.join(', ')} ]`;
+      // Se o array é simples (strings, numbers, nulls), exibe tudo em uma linha
+      if (value.every((v) => v === null || typeof v !== 'object')) {
+        // Mapeia null para string literal 'null'
+        const formatted = value.map((v) => (v === null ? 'null' : String(v))).join(', ');
+        return `[ ${formatted} ]`;
       }
 
       // Array de objetos — formatado multiline
