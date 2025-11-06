@@ -98,19 +98,35 @@ export class DiffChatComponent implements OnInit {
       }
 
 
+      // const placeLines = (text: string, total: number) => {
+      //   const lines = text.split('\n');
+      //   const missing = total - lines.length;
+
+      //   // Adiciona linhas vazias visíveis (ex: espaço simples)
+      //   if (missing > 0) {
+      //     for (let i = 0; i < missing; i++) {
+      //       lines.push(' '); // mantém alinhamento visual
+      //     }
+      //   }
+
+      //   return lines.join('\n');
+      // };
+
       const placeLines = (text: string, total: number) => {
-        const lines = text.split('\n');
-        const missing = total - lines.length;
+      const lines = text.split('\n');
+      const missing = total - lines.length;
 
-        // Adiciona linhas vazias visíveis (ex: espaço simples)
-        if (missing > 0) {
-          for (let i = 0; i < missing; i++) {
-            lines.push(' '); // mantém alinhamento visual
-          }
+      const result = lines.map(line => ({ text: line, isPadding: false }));
+
+      // Adiciona linhas de padding visuais (com fundo cinza)
+      if (missing > 0) {
+        for (let i = 0; i < missing; i++) {
+          result.push({ text: ' ', isPadding: true });
         }
+      }
 
-        return lines.join('\n');
-      };
+      return result;
+    };
 
       const balancedBefore = placeLines(beforeValue, maxLines);
       const balancedAfter = placeLines(afterValue, maxLines);
@@ -127,8 +143,22 @@ export class DiffChatComponent implements OnInit {
     return diffRows;
   }
 
+  hasPadding(value: any): boolean {
+    if (Array.isArray(value)) {
+      return value.some(v => this.hasPadding(v));
+    }
 
-   /**
+    if (value && typeof value === 'object') {
+      if ('isPadding' in value && value.isPadding === true) {
+        return true;
+      }
+      return Object.values(value).some(v => this.hasPadding(v));
+    }
+
+    return false;
+  }
+
+  /**
    * Converte diferentes tipos de valores (primitivos, objetos ou arrays)
    * em uma representação de string legível e formatada.
    * Usado para exibir os dados de forma organizada nas colunas do diff.
@@ -139,22 +169,26 @@ export class DiffChatComponent implements OnInit {
   formatValue(value: DiffValue): string {
     if (value === null || value === undefined) return '';
 
+    // Array
     if (Array.isArray(value)) {
+      // Array vazio
       if (value.length === 0) return '[]';
-      if (value.every((v) => typeof v !== 'object')) {
+
+      // Array simples (string, number, boolean)
+      if (value.every(v => typeof v !== 'object')) {
         return `[ ${value.join(', ')} ]`;
       }
-      return (
-        '[\n' +
-        value.map((v) => '  ' + JSON.stringify(v, null, 2)).join(',\n') +
-        '\n]'
-      );
+
+      // Array de objetos — formatado multiline
+      return '[\n' + value.map(v => '  ' + JSON.stringify(v, null, 2)).join(',\n') + '\n]';
     }
 
+    // Objeto
     if (typeof value === 'object') {
       return JSON.stringify(value, null, 2);
     }
 
+    // Valor primitivo
     return String(value);
   }
 }
