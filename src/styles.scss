@@ -36,5 +36,21 @@ $todo-app-diff-angular-theme: mat.define-theme((
 // @include mat.color-variants-backwards-compatibility($todo-app-diff-angular-theme);
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  font-size: 1rem;
+  line-height: 1.25rem;
+  padding: 10px 0 !important;
+  background-color: #f9f9f9;
+}

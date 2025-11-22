@@ -7,6 +7,9 @@ Screenshot:
 ![Iniciando Todo App](./assets/img/diff-angular-18-frontend-aparecida-luna-goncalves-cida-luna-web.png)
 
 
+![Diff](./assets/img/diff-chat-2-angular-18.png)
+
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.

@@ -2,14 +2,25 @@
   font-family: 'Courier New', Courier, monospace;
   color: #000a8f;
   background-color: #f9f9f9;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 1rem 0;
 
   h2 {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    font-family: 'Courier New', Courier, monospace;
   }
 
   h3 {
     color: #060078;
+    margin: 0.75rem;
+    font-weight: 600;
   }
 
   .side-by-side {
@@ -18,8 +29,15 @@
 
     .left,
     .right {
-      width: 50%;
+      width: 45%;
       background-color: #d5f0ff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-content: center;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
   }
 

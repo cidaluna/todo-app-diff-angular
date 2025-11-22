@@ -97,21 +97,6 @@ export class DiffChatComponent implements OnInit {
         statusAfter = 'modified';
       }
 
-
-      // const placeLines = (text: string, total: number) => {
-      //   const lines = text.split('\n');
-      //   const missing = total - lines.length;
-
-      //   // Adiciona linhas vazias visíveis (ex: espaço simples)
-      //   if (missing > 0) {
-      //     for (let i = 0; i < missing; i++) {
-      //       lines.push(' '); // mantém alinhamento visual
-      //     }
-      //   }
-
-      //   return lines.join('\n');
-      // };
-
       const placeLines = (text: string, total: number) => {
       const lines = text.split('\n');
       const missing = total - lines.length;
