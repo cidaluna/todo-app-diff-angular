@@ -1,4 +1,4 @@
-# TodoAppDiffAngular
+# Todos App Diff Angular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.19.
 
@@ -7,7 +7,7 @@ Screenshot:
 ![Iniciando Todo App](./assets/img/diff-angular-18-frontend-aparecida-luna-goncalves-cida-luna-web.png)
 
 
-![Diff](./assets/img/diff-chat-2-angular-18.png)
+![Diff](./assets/img/diff-chat-angular-18.png)
 
 
 ## Development server
@@ -29,3 +29,8 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 ## Running end-to-end tests
 
 Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+
+## Running data json
+
+Run `npm run json-server-chat` to get data from diff-chat-bd.json.
+

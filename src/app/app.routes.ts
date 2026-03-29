@@ -9,7 +9,7 @@ import { DiffChat2Component } from './chat/diff-chat-2/diff-chat-2.component';
 export const routes: Routes = [
   // { path: '', component: TodoListComponent },
   // { path: '', component: TodoTestDiffCoComponent },
-  // { path: '', component: DiffChatComponent },  //rever objetos aninhados
+  { path: '', component: DiffChatComponent },  //rever objetos aninhados
   { path: 'diff-chat-2', component: DiffChat2Component },
   {
     path: 'nova',

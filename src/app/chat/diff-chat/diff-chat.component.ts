@@ -19,7 +19,7 @@ import { DiffChatService } from '../../core/services/diff-chat.service';
 export class DiffChatComponent implements OnInit {
   diffRows: ChatDiffRow[] = [];
 
-  constructor(private diffChatService: DiffChatService) {}
+  constructor(private readonly diffChatService: DiffChatService) {}
 
   /**
    *  - Lifecycle hook executado uma única vez, logo após a inicialização do componente.
