@@ -14,31 +14,52 @@
     </div>
     <button class="voltar" type="button" (click)="voltar()">Voltar</button>
   </div>
-  <div *ngIf="todo && todo.pendingChange" class="diff-container">
+
+  <div *ngIf="isLoading" style="display: flex; flex-direction: column; align-items: center; margin: 2rem 0;">
+    <mat-progress-spinner color="primary" mode="indeterminate" diameter="40"></mat-progress-spinner>
+    <p style="margin-top:1rem;">Aguarde! Carregando dados...</p>
+  </div>
+
+  <div *ngIf="!isLoading && todo && todo.pendingChange" class="diff-container">
+    <!-- Original -->
     <div class="card original">
       <h3>Original (Antes)</h3>
       <p [ngClass]="delta?.title"><strong>Título:</strong> {{ todo.title }}</p>
       <p [ngClass]="delta?.description"><strong>Descrição:</strong> {{ todo.description }}</p>
+      <p [ngClass]="delta?.channels">{{ todo.channels }}</p>
       <p [ngClass]="delta?.status"><strong>Status:</strong> {{ todo.status }}</p>
-      <p *ngIf="todo.pendingChange?.subtasks"><strong>Subtarefas:</strong></p>
+      <p *ngIf="todo.subtasks?.length"><strong>Subtarefas:</strong></p>
       <ul>
-        <li *ngFor="let s of todo.subtasks; let i = index"
-        [ngClass]="getDeltaClass(delta?.subtasks?.[i])">
-          {{ s.title }} - {{ s.done ? 'Feita' : 'Pendente' }}
+        <li *ngFor="let s of todo.subtasks; let i = index" [ngClass]="getDeltaClass(delta?.subtasks?.[i])">
+          <strong>{{ s.subtitle }}</strong> - {{ s.done ? 'Feita' : 'Pendente' }}
+          <ul *ngIf="s.transaction?.length">
+            <li *ngFor="let t of s.transaction; let j = index"
+              [ngClass]="getDeltaClass(delta?.subtasks?.[i]?.transaction?.[j])">
+              <strong>Transação:</strong> Label: {{ t.label }}, Location: {{ t.location }}
+            </li>
+          </ul>
         </li>
       </ul>
     </div>
 
+    <!-- Proposta -->
     <div class="card proposed">
       <h3>Proposta (Depois)</h3>
       <p [ngClass]="delta?.title"><strong>Título:</strong> {{ todo.pendingChange.title }}</p>
       <p [ngClass]="delta?.description"><strong>Descrição:</strong> {{ todo.pendingChange.description }}</p>
-      <p [ngClass]="delta?.status"><strong>Status:</strong> {{ todo.status }}</p>
-      <p *ngIf="todo.pendingChange?.subtasks"><strong>Subtarefas:</strong></p>
+      <p [ngClass]="delta?.channels">{{ todo.channels }}</p>
+      <p [ngClass]="delta?.status"><strong>Status:</strong> {{ todo.pendingChange.status }}</p>
+      <p *ngIf="todo.pendingChange?.subtasks?.length"><strong>Subtarefas:</strong></p>
       <ul>
         <li *ngFor="let s of todo.pendingChange?.subtasks; let i = index"
-        [ngClass]="getDeltaClass(delta?.subtasks?.[i])">
-          {{ s.title }} - {{ s.done ? 'Feita' : 'Pendente' }}
+          [ngClass]="getDeltaClass(delta?.subtasks?.[i])">
+          <strong>{{ s.subtitle }}</strong> - {{ s.done ? 'Feita' : 'Pendente' }}
+          <ul *ngIf="s.transaction?.length">
+            <li *ngFor="let t of s.transaction; let j = index"
+              [ngClass]="getDeltaClass(delta?.subtasks?.[i]?.transaction?.[j])">
+              <strong>Transação:</strong> Label: {{ t.label }}, Location: {{ t.location }}
+            </li>
+          </ul>
         </li>
       </ul>
     </div>

@@ -37,35 +37,60 @@ export class TodoFormComponent implements OnInit {
   ngOnInit(): void {
     this.perfilUsuario = this.authService.getUserRole();
     this.todoId = Number(this.route.snapshot.paramMap.get('id'));
+    console.log('ID TODO:', this.todoId);
+
     this.form = this.fb.group({
+      id: [{ value: '', disabled: true }],
       title: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(3)]],
+      channels: this.fb.group({
+        API: [true],
+        WEB: [false],
+      }),
       subtasks: this.fb.array([]),
     });
 
     if (this.todoId) {
       this.isEditing = true;
       this.todoService.getTodoById(this.todoId).subscribe((todo) => {
-        this.originalTodo = todo;
+        console.log('Dados do TODO:', todo);
         this.form.patchValue({
+          id: todo.id,
           title: todo.title.trim(),
           description: todo.description?.trim(),
+          channels: {
+            API: todo.channels.includes('API'),
+            WEB: todo.channels.includes('WEB'),
+          },
         });
 
-        todo.subtasks.forEach((sub) => {
-          this.subtasks.push(
-            this.fb.group({
-              title: [
-                sub.title,
-                [Validators.required, Validators.minLength(3)],
-              ],
+        if (todo.subtasks) {
+          todo.subtasks.forEach((sub) => {
+            const subtaskGroup = this.fb.group({
+              subtitle: [sub.subtitle, [Validators.required, Validators.minLength(3)]],
               done: [sub.done],
-            })
-          );
-        });
+              transaction: this.fb.array([]),
+            });
+
+            if (sub.transaction) {
+              sub.transaction.forEach((tx) => {
+                const transactionGroup = this.fb.group({
+                  label: [tx.label],
+                  location: this.fb.array(
+                    tx.location || []
+                  ),
+                });
+
+                (subtaskGroup.get('transaction') as FormArray).push(
+                  transactionGroup
+                );
+              });
+            }
+
+            this.subtasks.push(subtaskGroup);
+          });
+        }
       });
-    } else {
-      this.subtasks.push(this.createSubtask());
     }
   }
 
@@ -75,13 +100,18 @@ export class TodoFormComponent implements OnInit {
 
   createSubtask(): FormGroup {
     return this.fb.group({
-      title: ['', [Validators.required, Validators.minLength(3)]],
+      subtitle: ['', [Validators.required, Validators.minLength(3)]],
       done: [false],
     });
   }
 
   addSubtask(): void {
-    this.subtasks.push(this.createSubtask());
+    const subtask = this.fb.group({
+      subtitle: ['', [Validators.required, Validators.minLength(3)]],
+      done: [false],
+      transaction: this.fb.array([]), // Inicializa o array de transações vazio
+    });
+    this.subtasks.push(subtask);
   }
 
   removeSubtask(index: number): void {
@@ -105,11 +135,17 @@ export class TodoFormComponent implements OnInit {
     const trimmedDescription = this.form.value.description.trim();
 
     const currentData: Partial<ITodo> = {
-      title: trimmedTitle,
-      description: trimmedDescription,
-      subtasks: this.form.value.subtasks,
-      status: Status.RASCUNHO,
-      pendingChange: undefined,
+      ...this.form.value,
+      channels: Object.keys(this.form.value.channels).filter(
+        (key) => this.form.value.channels[key]
+      ),
+      subtasks: this.form.value.subtasks.map((sub: any) => ({
+        ...sub,
+        transaction: sub.transaction.map((tx: any) => ({
+          ...tx,
+          location: tx.location || [],
+        })),
+      })),
     };
 
     if (this.isEditing) {
@@ -120,9 +156,10 @@ export class TodoFormComponent implements OnInit {
     } else {
       const todo: ITodo = {
         ...currentData,
-        id: Date.now(), // Só gera novo ID no modo criação
+        id: `${Date.now()}`, // Só gera novo ID no modo criação
         title: trimmedTitle, // Usando "!" para afirmar que não é undefined
         description: trimmedDescription || '', // Fallback vazio se for undefined
+        channels: currentData.channels || [],
         subtasks: currentData.subtasks || [],
         status: Status.RASCUNHO,
       };
@@ -167,4 +204,58 @@ export class TodoFormComponent implements OnInit {
       currentSubtasks !== originalSubtasks
     );
   }
+
+  getTransactions(subtaskIndex: number): FormArray {
+    const subtask = this.subtasks.at(subtaskIndex);
+    if (!subtask) {
+      throw new Error(`Subtask no índice ${subtaskIndex} não encontrada.`);
+    }
+    return subtask.get('transaction') as FormArray;
+  }
+
+  addTransaction(subtaskIndex: number): void {
+    const transaction = this.fb.group({
+      label: ['', Validators.required],
+      location: this.fb.array([]), // Inicializa o array de locations vazio
+    });
+    this.getTransactions(subtaskIndex).push(transaction);
+  }
+
+  getLocationArray(subtaskIndex: number, transactionIndex: number): FormArray {
+    const transaction = this.getTransactions(subtaskIndex).at(transactionIndex);
+    return transaction.get('location') as FormArray;
+  }
+
+  removeTransaction(subtaskIndex: number, transactionIndex: number): void {
+    this.getTransactions(subtaskIndex).removeAt(transactionIndex);
+  }
+
+  // addLocation(subtaskIndex: number, transactionIndex: number): void {
+  //   const locationControl = this.fb.control('', Validators.required); // Cria um novo campo de location
+  //   const locationArray = this.getTransactions(subtaskIndex)
+  //     .at(transactionIndex)
+  //     .get('location') as FormArray;
+
+  //   if (locationArray) {
+  //     locationArray.push(locationControl);
+  //   } else {
+  //     console.error(`O FormArray 'location' não foi encontrado na transação ${transactionIndex} da subtarefa ${subtaskIndex}.`);
+  //   }
+  // }
+
+  // removeLocation(
+  //   subtaskIndex: number,
+  //   transactionIndex: number,
+  //   locationIndex: number
+  // ): void {
+  //   const locationArray = this.getTransactions(subtaskIndex)
+  //     .at(transactionIndex)
+  //     .get('location') as FormArray;
+
+  //   if (locationArray) {
+  //     locationArray.removeAt(locationIndex);
+  //   } else {
+  //     console.error(`O FormArray 'location' não foi encontrado na transação ${transactionIndex} da subtarefa ${subtaskIndex}.`);
+  //   }
+  // }
 }

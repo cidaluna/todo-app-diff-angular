@@ -4,11 +4,12 @@ import { ITodo } from '../core/models/todo.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TodoService } from '../core/services/todo.service';
 import { CommonModule } from '@angular/common';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-todo-diff',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatProgressSpinnerModule],
   templateUrl: './todo-diff.component.html',
   styleUrl: './todo-diff.component.scss',
 })
@@ -28,6 +29,7 @@ export class TodoDiffComponent implements OnInit {
 
   todo!: ITodo;
   delta: any = {};
+  isLoading = true;
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -38,6 +40,13 @@ export class TodoDiffComponent implements OnInit {
         this.delta = this.compareObjects(this.todo, this.todo.pendingChange);
         console.log('Delta:', this.delta);
       }
+      // Loading termina assim que os dados chegam
+      this.isLoading = false;
+
+      // Simula 5 segundos de loading
+      // setTimeout(() => {
+      //   this.isLoading = false;
+      // }, 5000);
     });
   }
 

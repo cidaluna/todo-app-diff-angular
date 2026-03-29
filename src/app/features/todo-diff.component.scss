@@ -27,13 +27,11 @@
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-// .original {
-//   background-color: #f9f9f9;
-// }
-
-// .proposed {
-//   background-color: #f9f9f9;
-// }
+// spinner loading
+@keyframes spin {
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(360deg);}
+}
 
 /* Adicionado */
 .added {

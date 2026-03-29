@@ -1,0 +1,88 @@
+{
+  "adminBefore": [
+    {
+      "id": "101",
+      "title": "Estudar Angular",
+      "description": "Revisar conceitos básicos e avançados do Angular",
+      "channels": ["API", "WEB"],
+      "transfer": "valor transfer",
+      "localization": ["SP", "RJ", "AM"],
+      "generation": {
+        "name": "Verificação",
+        "info": "Informação de verificação",
+        "items": ["Item1", "Item2"]
+      },
+      "subtasks": [
+        {
+          "subtitle": "Revisar Componentes",
+          "done": false,
+          "zero": "novo campo",
+          "transaction": [
+            {
+              "label": "Criar Componente",
+              "location": ["src/app/components", "src/app/shared"]
+            },
+            {
+              "label": "Refatorar Componente"
+            }
+          ]
+        },
+        {
+          "subtitle": "Revisar Services",
+          "zero": "novo campo",
+          "done": false,
+          "transaction": []
+        }
+      ],
+      "status": "PENDENTE",
+      "pendingChange": "",
+      "verify": {
+        "name": "Verificação",
+        "info": "Informação de verificação",
+        "items": ["Item1", "Item2"],
+        "details": {
+          "createdBy": "Admin",
+          "createdAt": "2025-01-01T10:00:00Z"
+        }
+      }
+    }
+  ],
+  "adminAfter": [
+    {
+      "id": "101",
+      "title": "Estudar Angular",
+      "description": "Revisar tópicos avançados do Angular, incluindo RxJS e NgRx",
+      "channels": ["API", "WEB"],
+      "generation": {
+        "name": "Verificação",
+        "info": "Informação de verificação",
+        "items": ["Item1", "Item2"],
+        "details": {
+          "createdBy": "Admin",
+          "createdAt": "2025-01-01T10:00:00Z"
+        }
+      },
+      "localization": [],
+      "subtasks": [
+        {
+          "zero": "novo campo",
+          "subtitle": "Revisar Componentes",
+          "done": false
+        },
+        {
+          "subtitle": "Revisar Services"
+        }
+      ],
+      "status": "PENDENTE",
+      "verify": {
+        "name": "Verificação"
+      },
+      "pendingChange": null,
+      "test": {
+        "name": "Teste",
+        "detail": "Detalhe do teste",
+        "idFamily": "TF38"
+      }
+    }
+  ]
+}

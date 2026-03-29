@@ -1,0 +1,42 @@
+<div class="diff-container">
+  <h2>Comparação Visual</h2>
+  <div class="side-by-side">
+    <!-- Coluna Antes -->
+    <div class="left">
+      <h3>Antes</h3>
+      <ng-container *ngFor="let row of diffRows">
+        <ng-container *ngTemplateOutlet="renderDiff; context: { row: row, side: 'left' }"></ng-container>
+      </ng-container>
+    </div>
+
+    <!-- Coluna Depois -->
+    <div class="right">
+      <h3>Depois</h3>
+      <ng-container *ngFor="let row of diffRows">
+        <ng-container *ngTemplateOutlet="renderDiff; context: { row: row, side: 'right' }"></ng-container>
+      </ng-container>
+    </div>
+  </div>
+
+  <ng-template #renderDiff let-row="row" let-side="side">
+    <div class="row" [ngClass]="side === 'left' ? row.statusLeft : row.statusRight">
+      <span class="key" [ngClass]="side === 'left' ? row.statusLeft : row.statusRight">
+        {{ row.key ? row.key + ':' : '' }}
+      </span>
+
+      <ng-container *ngIf="!row.children; else recursive">
+        <span class="value" [ngClass]="side === 'left' ? row.statusLeft : row.statusRight">
+          {{ side === 'left' ? (row.leftValue ?? '') : (row.rightValue ?? '') }}
+        </span>
+      </ng-container>
+
+      <ng-template #recursive>
+        <div class="nested">
+          <ng-container *ngFor="let child of row.children">
+            <ng-container *ngTemplateOutlet="renderDiff; context: { row: child, side: side }"></ng-container>
+          </ng-container>
+        </div>
+      </ng-template>
+    </div>
+  </ng-template>
+</div>

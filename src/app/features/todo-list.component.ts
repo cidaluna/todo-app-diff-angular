@@ -43,19 +43,19 @@ export class TodoListComponent implements OnInit{
     this.router.navigate(['/nova']);
   }
 
-  editar(id: number) {
+  editar(id: number | string) {
     // exemplo: navegar para rota /editar/:id
     console.log('editar', id);
     this.router.navigate(['/editar', id]);
   }
 
-  verDiff(id: number) {
+  verDiff(id: number | string) {
     // exemplo: navegar para rota /diff/:id
     console.log('verDiff', id);
     this.router.navigate(['/diff', id]);
   }
 
-  verDetalhes(todoId: number) {
+  verDetalhes(todoId: number | string ) {
     const todo = this.todos.find(t => t.id === todoId);
     console.log('Abrindo modal para:', todo);
     if (todo) {

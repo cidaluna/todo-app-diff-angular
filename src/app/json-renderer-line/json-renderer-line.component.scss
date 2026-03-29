@@ -1,0 +1,34 @@
+.json-view {
+    background: #dbdbdb;
+    color: #222222;
+    padding: 1rem;
+    border-radius: 4px;
+    font-family: monospace;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-x: auto;
+    line-height: 1.4;
+    min-height: 400px;
+
+    .json-line {
+      display: block;
+      width: 100%;
+      min-height: 1.4em;
+    }
+
+    .json-line.highlight {
+      background: #ffd900;
+      color: #222222;
+    }
+
+    .json-line.placeholder {
+      background: #3f3f3f;
+      color: #218300;
+    }
+
+    .json-line.empty {
+      background: #4d4d4d;
+      color: #de0000;
+      font-style: italic;
+    }
+  }
